@@ -83,19 +83,24 @@
 
         /* Ajuste para mobile */
         @media (max-width: 768px) {
-        body {
-            overflow: auto; /* Allow scrolling on mobile */
-        }
-
-        #map {
-            position: fixed;
-            top: 200px; /* Adjust based on banner and category buttons */
-            bottom: 50px;
-            left: 0;
-            right: 0;
-            z-index: 1;
-        }
-
+            #top-banner {
+                padding: 6px 10px;
+            }
+            
+            .banner-text {
+                font-size: 14px;
+            }
+            
+            .control-panel,
+            .info-panel,
+            .menu-toggle,
+            .info-toggle {
+                top: 35px;
+            }
+            
+            .como-chegar-btn {
+                top: 85px;
+            }
         }
     </style>
     
@@ -320,14 +325,6 @@
     </div>
     <div class="menu-toggle">☰</div>
     <div class="info-toggle">ℹ️</div>
-    <!-- Toggle buttons - logo após a div do mapa -->
-    <div class="menu-toggle hidden">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="info-toggle hidden">
-        <i class="fas fa-info"></i>
-    </div>
     <button class="como-chegar-btn">
         <i class="fas fa-directions"></i> Como Chegar
     </button>
