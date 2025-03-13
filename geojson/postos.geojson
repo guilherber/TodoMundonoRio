@@ -1,0 +1,65 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.184456, -22.967429]
+        },
+        "properties": {
+          "name": "12 Delegacia"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.179230, -22.967847]
+        },
+        "properties": {
+          "name": "PMERJ"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.180582, -22.964603]
+        },
+        "properties": {
+          "name": "19 Cabine PMERJ"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.187885, -22.967825]
+        },
+        "properties": {
+          "name": "19 Batalhão Militar"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.187885, -22.967825]
+        },
+        "properties": {
+          "name": "13 Delegacia"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-43.189098, -22.985758]
+        },
+        "properties": {
+          "name": "Polícia Militar"
+        }
+      }
+    ]
+  }

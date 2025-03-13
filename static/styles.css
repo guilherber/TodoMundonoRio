@@ -1,0 +1,597 @@
+@font-face {
+    font-family: 'Broadway';
+    src: url('https://db.onlinewebfonts.com/t/e6f84d390465399a8e34a15b337dd034.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #000;
+}
+
+#map {
+    width: 100%;
+    height: 100vh;
+}
+
+/* Control Panel Styles */
+.control-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(25, 25, 25, 0.95);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    max-width: 320px;
+    backdrop-filter: blur(10px);
+}
+
+.control-header {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+    padding: 12px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Broadway', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.control-title {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.control-close {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.control-content {
+    padding: 12px;
+}
+
+/* Button Group */
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.category-btn {
+    background-color: rgba(51, 51, 51, 0.7);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+    background-color: rgba(68, 68, 68, 0.8);
+    transform: translateY(-1px);
+}
+
+.category-btn.active {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+}
+
+/* Legend Styles */
+.control-legend {
+    background-color: rgba(30, 30, 30, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.legend-title {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Broadway', sans-serif;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.legend-label {
+    color: rgba(255,255,255,0.9);
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.control-content p {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+/* Info Panel Styles */
+.info-panel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(25, 25, 25, 0.95);
+    color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    width: 360px; /* Increased width */
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+}
+
+.info-header {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+    padding: 12px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Broadway', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.info-content {
+    padding: 15px;
+}
+
+.info-section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.info-section h3 {
+    color: #EBBC00; /* More golden/yellow tone */
+    margin-bottom: 10px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Broadway', sans-serif;
+}
+
+.info-section p, .info-section li {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.4;
+}
+
+.info-list {
+    list-style-type: none;
+}
+
+.info-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+
+.info-time {
+    color: #EBBC00; /* More golden/yellow tone */
+    font-weight: bold;
+    min-width: 50px;
+    font-family: 'Broadway', sans-serif;
+}
+
+.info-number {
+    color: #EBBC00; /* More golden/yellow tone */
+    font-weight: bold;
+    font-family: 'Broadway', sans-serif;
+}
+
+/* Como Chegar Button */
+.como-chegar-btn {
+    position: absolute;
+    top: 10px;
+    right: 380px; /* Adjusted for wider sidebar */
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 13px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transition: all 0.2s ease;
+    font-family: 'Broadway', sans-serif;
+}
+
+.como-chegar-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+}
+
+/* Modal Styles */
+.como-chegar-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(25, 25, 25, 0.98);
+    width: 380px;
+    max-width: 90%;
+    border-radius: 8px;
+    z-index: 2000;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+}
+
+.como-chegar-header {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+    padding: 12px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Broadway', sans-serif;
+}
+
+.como-chegar-content {
+    padding: 20px;
+    color: #fff;
+}
+
+.como-chegar-section {
+    margin-bottom: 20px;
+}
+
+.como-chegar-section h3 {
+    color: #EBBC00; /* More golden/yellow tone */
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: 'Broadway', sans-serif;
+}
+
+.option-box {
+    background-color: rgba(51, 51, 51, 0.7);
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.option-box h4 {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.option-box p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+}
+
+.route-btn {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    color: #000;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-family: 'Broadway', sans-serif;
+}
+
+.route-btn:hover {
+    background-color: #FFD700;
+    transform: translateY(-1px);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 1999;
+    backdrop-filter: blur(4px);
+}
+
+/* Branding Styles */
+.branding {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(25, 25, 25, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 200px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.branding img {
+    max-width: 120px;
+    margin-bottom: 5px;
+}
+
+.branding-text {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+    font-family: 'Broadway', sans-serif;
+}
+
+.branding-content {
+    background-color: #EBBC00; /* More golden/yellow tone */
+    padding: 12px;
+    border-radius: 4px;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 C 20 30, 50 30, 70 50 C 90 70, 80 90, 100 75 L 100 100 L 0 100 Z' fill='%23F5F5DC' /%3E%3C/svg%3E");
+    background-size: 100px 100px;
+}
+
+.branding-subtitle {
+    color: #000;
+    font-size: 12px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-family: 'Broadway', sans-serif;
+}
+
+.branding-date {
+    color: #000;
+    font-size: 11px;
+    font-family: 'Broadway', sans-serif;
+}
+
+/* Location Button */
+.location-btn {
+    position: absolute;
+    bottom: 90px;
+    right: 10px;
+    background-color: rgba(25, 25, 25, 0.95);
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    z-index: 998;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    transition: all 0.2s ease;
+}
+
+.location-btn:hover {
+    background-color: rgba(51, 51, 51, 0.95);
+    transform: translateY(-1px);
+}
+
+/* Toggle Buttons */
+.menu-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #EBBC00;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: none; /* Hidden by default, shows when panel is closed */
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+
+.info-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #EBBC00;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    display: none; /* Hidden by default, shows when panel is closed */
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+
+/* Leaflet Customizations */
+.leaflet-control-zoom {
+    margin-bottom: 40px !important;
+    margin-right: 10px !important;
+}
+
+.leaflet-control-zoom a {
+    background-color: rgba(25, 25, 25, 0.95) !important;
+    color: #fff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: rgba(51, 51, 51, 0.95) !important;
+}
+
+.attribution {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    z-index: 997;
+}
+
+.leaflet-popup-content-wrapper {
+    background-color: rgba(25, 25, 25, 0.98);
+    color: #fff;
+    border-radius: 4px;
+}
+
+.leaflet-popup-tip {
+    background-color: rgba(25, 25, 25, 0.98);
+}
+
+.leaflet-popup-content {
+    margin: 12px;
+    font-size: 13px;
+}
+
+.leaflet-popup-content strong {
+    color: #EBBC00;
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Broadway', sans-serif;
+}
+
+/* Custom scrollbar for better UI */
+.info-content::-webkit-scrollbar, 
+.como-chegar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.info-content::-webkit-scrollbar-track, 
+.como-chegar-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.info-content::-webkit-scrollbar-thumb, 
+.como-chegar-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.info-content::-webkit-scrollbar-thumb:hover, 
+.como-chegar-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Improved Mobile Responsiveness */
+@media (max-width: 768px) {
+    .control-panel {
+        width: 90%;
+        max-width: none;
+        left: 5%;
+        top: 5px;
+    }
+    
+    .info-panel {
+        width: 90%;
+        max-width: none;
+        right: 5%;
+        top: auto;
+        bottom: 10px;
+        max-height: 40vh;
+    }
+    
+    .como-chegar-btn {
+        right: 10px;
+        top: 60px;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .branding {
+        bottom: auto;
+        top: 110px;
+        width: 150px;
+    }
+    
+    .legend-items {
+        grid-template-columns: 1fr;
+    }
+    
+    .location-btn {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .leaflet-control-zoom {
+        margin-bottom: 10px !important;
+        margin-right: 60px !important;
+    }
+    
+    .category-btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .info-time, .info-number {
+        min-width: auto;
+    }
+    
+    .como-chegar-modal {
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}

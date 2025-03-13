@@ -1,0 +1,11 @@
+{
+    "type": "FeatureCollection",
+    "name": "metro",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    "features": [
+      { "type": "Feature", "properties": { "id": 1, "name": "General Osório" }, "geometry": { "type": "Point", "coordinates": [ -43.197179783708229, -22.984781999726867 ] } },
+      { "type": "Feature", "properties": { "id": 2, "name": "Cantagalo" }, "geometry": { "type": "Point", "coordinates": [ -43.193792729013261, -22.976674562084209 ] } },
+      { "type": "Feature", "properties": { "id": 3, "name": "Siqueira Campos" }, "geometry": { "type": "Point", "coordinates": [ -43.187049411029662, -22.967262520891545 ] } },
+      { "type": "Feature", "properties": { "id": 4, "name": "Cardeal Arcoverde" }, "geometry": { "type": "Point", "coordinates": [ -43.180644798515551, -22.964611722345797 ] } }
+    ]
+  }

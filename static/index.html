@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Mundo No Rio - Lady Gaga em Copacabana</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts for Broadway alternative -->
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/styles.css" type="text/css">
+</head>
+<body>
+    <div id="map"></div>
+    
+    <!-- Toggle buttons that appear when panels are closed -->
+    <div class="menu-toggle hidden">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="info-toggle hidden">
+        <i class="fas fa-info"></i>
+    </div>
+    
+    <div class="control-panel">
+        <div class="control-header">
+            <span class="control-title">Visualizações</span>
+            <span class="control-close">&times;</span>
+        </div>
+        <div class="control-content">
+            <p>Selecione uma categoria para visualizar no mapa:</p>
+            <div class="btn-group">
+                <button class="category-btn active" data-category="show">
+                    <i class="fas fa-music"></i> Área do Show
+                </button>
+                <button class="category-btn" data-category="security">
+                    <i class="fas fa-shield-alt"></i> Segurança
+                </button>
+                <button class="category-btn" data-category="transport">
+                    <i class="fas fa-subway"></i> Transporte
+                </button>
+                <button class="category-btn" data-category="blocks">
+                    <i class="fas fa-ban"></i> Bloqueios
+                </button>
+                <button class="category-btn" data-category="services">
+                    <i class="fas fa-first-aid"></i> Serviços
+                </button>
+                <button class="category-btn" data-category="hotels">
+                    <i class="fas fa-hotel"></i> Hotéis
+                </button>
+                <button class="category-btn" data-category="restaurants">
+                    <i class="fas fa-utensils"></i> Restaurantes
+                </button>
+                <button class="category-btn" data-category="all">
+                    <i class="fas fa-globe"></i> Ver Tudo
+                </button>
+            </div>
+            
+            <!-- Legend moved to under the Lady Gaga heading -->
+            <div class="control-legend">
+                <div class="legend-title">LEGENDA</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #A67C00;"></div>
+                        <div class="legend-label">Área do Show / Palco</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #0070CC;"></div>
+                        <div class="legend-label">Segurança</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #D33131;"></div>
+                        <div class="legend-label">Bloqueios</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #28A745;"></div>
+                        <div class="legend-label">Serviços</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #F0AB00;"></div>
+                        <div class="legend-label">Transporte</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #9013FE;"></div>
+                        <div class="legend-label">Hotéis</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #00ACC1;"></div>
+                        <div class="legend-label">Restaurantes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-panel">
+        <div class="info-header">
+            <span class="control-title">Informações</span>
+            <span class="info-close">&times;</span>
+        </div>
+        <div class="info-content">
+            <div class="info-section">
+                <h3>Cronograma</h3>
+                <div class="info-item">
+                    <span class="info-time">Qui (1)</span>
+                    <span>Proibição de estacionamento em Copacabana</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">Sáb (3)</span>
+                    <span>Pista da orla da Av. Atlântica fechada</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">11h</span>
+                    <span>Pista junto aos prédios também fechada</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">18h</span>
+                    <span>Apenas táxis e ônibus podem entrar no bairro</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">19h30</span>
+                    <span>Copacabana completamente fechada ao trânsito</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">4h</span>
+                    <span>Reabertura dos acessos</span>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Segurança</h3>
+                <div class="info-item">
+                    <span class="info-number">3.200</span>
+                    <span>policiais militares mobilizados</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">18</span>
+                    <span>pontos de revista com detectores de metal</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">12</span>
+                    <span>câmeras de reconhecimento facial</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">64</span>
+                    <span>viaturas e 4 drones</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">65</span>
+                    <span>torres de patrulhamento na areia</span>
+                </div>
+                <div class="info-item">
+                    <strong>Proibido:</strong>
+                    <span>garrafas de vidro e objetos cortantes</span>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Horário do Show</h3>
+                <div class="info-item">
+                    <span class="info-time">19h</span>
+                    <span>DJs de abertura</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">20h</span>
+                    <span>Pabllo Vittar</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">21h45</span>
+                    <span>Lady Gaga</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-time">23h45</span>
+                    <span>Previsão de término</span>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Operação Pós-Show</h3>
+                <div class="info-item">
+                    <span class="info-number">1.518</span>
+                    <span>garis destacados para limpeza da área</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">10</span>
+                    <span>tratores farão o peneiramento da areia</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-number">48</span>
+                    <span>agentes de fiscalização atuarão no local</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="como-chegar-btn">
+        <i class="fas fa-directions"></i> Como Chegar
+    </button>
+    
+    <div class="como-chegar-modal hidden">
+        <div class="como-chegar-header">
+            <span class="control-title">Como Chegar</span>
+            <span class="modal-close">&times;</span>
+        </div>
+        <div class="como-chegar-content">
+            <div class="como-chegar-section">
+                <h3>RECOMENDADO:</h3>
+                <div class="option-box">
+                    <h4>Metrô → Estação Siqueira Campos</h4>
+                    <p>Funcionamento até 4h da manhã</p>
+                </div>
+            </div>
+            
+            <div class="como-chegar-section">
+                <h3>OUTRAS OPÇÕES:</h3>
+                <div class="option-box">
+                    <h4>Ônibus</h4>
+                    <p>Linha direta Terminal Gentileza → Princesa Isabel</p>
+                </div>
+                <div class="option-box">
+                    <h4>Táxi / Uber</h4>
+                    <p>Desembarque até às 18h. Após esse horário, acesso restrito.</p>
+                </div>
+            </div>
+            
+            <button class="route-btn">Mostrar rota no mapa</button>
+        </div>
+    </div>
+    
+    <div class="overlay hidden"></div>
+    
+    <div class="branding">
+        <div class="branding-content wave-bg">
+            <div style="text-align: center; margin-bottom: 5px; font-family: 'Alfa Slab One', cursive;">APRESENTADO POR</div>
+            <img src="https://logodownload.org/wp-content/uploads/2014/04/corona-logo-1.png" alt="Corona">
+            <div class="branding-text">TODO MUNDO NO RIO</div>
+            <div class="branding-subtitle">Lady Gaga • Copacabana</div>
+            <div class="branding-date">3 DE MAIO DE 2025 • SÁBADO</div>
+        </div>
+    </div>
+    
+    <div class="location-btn">
+        <i class="fas fa-location-arrow"></i>
+    </div>
+    
+    <div class="attribution">© OpenStreetMap • Leaflet</div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    
+    <!-- Main JavaScript (único script necessário) -->
+    <script src="static/script.js" type="text/javascript"></script>
+</body>
+</html>
