@@ -795,3 +795,27 @@ html, body {
     margin: 0;
     padding: 0;
 }
+@media (max-width: 768px) {
+    .menu-toggle, 
+    .info-toggle {
+        display: flex;
+        position: fixed;
+        top: 50px; /* Ajuste conforme a altura do seu banner */
+        width: 40px;
+        height: 40px;
+        background-color: #ffefae;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        border-radius: 4px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .menu-toggle {
+        left: 10px;
+    }
+
+    .info-toggle {
+        right: 10px;
+    }
+}
