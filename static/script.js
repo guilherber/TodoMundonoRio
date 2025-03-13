@@ -1,4 +1,36 @@
 document.addEventListener('DOMContentLoaded', async function() {
+    // Chave da API do OpenWeatherMap
+    const OPENWEATHER_API_KEY = '0acbbf2a7e9e0c157c4e02f13835378b';
+
+    // Função para buscar previsão do tempo para um ponto
+    async function fetchWeatherForPoint(latitude, longitude) {
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}&units=metric&lang=pt_br`);
+            
+            if (!response.ok) {
+                throw new Error('Falha ao buscar previsão do tempo');
+            }
+            
+            const weatherData = await response.json();
+            
+            // Criar conteúdo do popup com informações meteorológicas
+            return `
+                <div class="weather-popup">
+                    <h3>Previsão do Tempo</h3>
+                    <img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; display: block; margin: 0 auto;">
+                    <p><strong>Temperatura:</strong> ${weatherData.main.temp.toFixed(1)}°C</p>
+                    <p><strong>Sensação Térmica:</strong> ${weatherData.main.feels_like.toFixed(1)}°C</p>
+                    <p><strong>Umidade:</strong> ${weatherData.main.humidity}%</p>
+                    <p><strong>Condição:</strong> ${weatherData.weather[0].description}</p>
+                    <p><strong>Vento:</strong> ${weatherData.wind.speed.toFixed(1)} m/s</p>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Erro ao buscar previsão do tempo:', error);
+            return `<div class="weather-popup">Previsão indisponível</div>`;
+        }
+    }
+
     // Inicializar o mapa
     const map = L.map('map', {
         center: [-22.9671, -43.1844], // Latitude, Longitude de Copacabana
@@ -26,7 +58,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         blocks: L.layerGroup(),
         services: L.layerGroup(),
         hotels: L.layerGroup(),
-        restaurants: L.layerGroup()
+        restaurants: L.layerGroup(),
+        weather: L.layerGroup() // Nova camada para pontos de previsão
     };
     
     // Mapear nomes de camadas para categorias
@@ -38,7 +71,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         "servicos": "services",
         "hoteis": "hotels",
         "posto": "security",  // Adicionando categoria para postos
-        "postos": "security"
+        "postos": "security",
+        "weather": "weather" // Nova categoria para pontos de clima
     };
     
     // Cores para cada camada
@@ -47,10 +81,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         "palco": "#EBBC00",
         "metros": "#28A745",  // Verde para metro
         "metro": "#28A745",   // Verde para metro
-        "servicos": "#28A745",
+        "servicos": "#A67C00",
         "hoteis": "#9013FE",
         "posto": "#0000FF",   // Azul para segurança
         "postos": "#0000FF",  // Azul para segurança
+        "weather": "#87CEFA", // Azul claro para pontos de clima
         "default": "#EBBC00"
     };
     
@@ -132,9 +167,23 @@ document.addEventListener('DOMContentLoaded', async function() {
                             fillOpacity: 0.9
                         });
                     },
-                    onEachFeature: (feature, layer) => {
-                        // Criar popup para o ponto
+                    onEachFeature: async (feature, layer) => {
+                        // Criar conteúdo inicial do popup
                         let content = `<strong>${feature.properties.name || layerInfo.name}</strong>`;
+                        
+                        // Se for um ponto e for da camada de weather, buscar previsão
+                        if (feature.geometry.type === 'Point' && layerNameLower === 'weather') {
+                            const [longitude, latitude] = feature.geometry.coordinates;
+                            
+                            try {
+                                // Adicionar previsão do tempo ao popup
+                                const weatherContent = await fetchWeatherForPoint(latitude, longitude);
+                                content += weatherContent;
+                            } catch (error) {
+                                console.error('Erro ao adicionar previsão:', error);
+                                content += '<p>Previsão indisponível</p>';
+                            }
+                        }
                         
                         // Adicionar outras propriedades relevantes
                         if (feature.properties) {
@@ -226,6 +275,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     async function loadAllLayers() {
         // Obter lista de camadas disponíveis
         const availableLayers = await loadAvailableLayers();
+        
+        // Adicionar camada de pontos de clima manualmente, se não existir
+        if (!availableLayers.some(layer => layer.name.toLowerCase() === 'weather')) {
+            availableLayers.push({
+                name: 'weather',
+                url: `/api/geojson/weather` // Ajuste a URL conforme necessário
+            });
+        }
         
         // Carregar cada camada
         let loadedCount = 0;
@@ -428,4 +485,76 @@ document.addEventListener('DOMContentLoaded', async function() {
     toggleLayer('blocks');
     
     console.log("Mapa inicializado com sucesso");
+});
+// Adicione este código ao seu arquivo script.js existente
+
+// Função para preencher o painel de previsão do tempo
+async function updateWeatherPanel() {
+    // Coordenadas de Copacabana, Rio de Janeiro
+    const lat = -22.9671;
+    const lon = -43.1844;
+    
+    try {
+        // Usar a mesma chave de API que já está definida no script
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${'0acbbf2a7e9e0c157c4e02f13835378b'}`);
+        if (!response.ok) {
+            throw new Error('Falha ao buscar previsão do tempo');
+        }
+        
+        const weatherData = await response.json();
+        
+        // Atualizar os elementos no painel
+        document.getElementById('weather-temp').textContent = `${Math.round(weatherData.main.temp)}°C`;
+        document.getElementById('weather-sky').textContent = weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1);
+        
+        // Para chance de chuva, usar cobertura de nuvens como aproximação, ou o pop se disponível
+        const rainChance = weatherData.clouds ? weatherData.clouds.all : 0;
+        document.getElementById('weather-rain').textContent = `${rainChance}%`;
+        
+        // Formatar a velocidade do vento
+        const windSpeed = weatherData.wind.speed;
+        let windDescription = 'Fraco';
+        
+        if (windSpeed > 10) {
+            windDescription = 'Forte';
+        } else if (windSpeed > 5) {
+            windDescription = 'Moderado';
+        }
+        
+        document.getElementById('weather-wind').textContent = `${windDescription}, ${Math.round(windSpeed * 3.6)} km/h`; // Convertendo m/s para km/h
+        
+        // Adicionar ícone do clima
+        const iconContainer = document.getElementById('weather-icon-container');
+        iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; height: 80px;">`;
+        
+    } catch (error) {
+        console.error('Erro ao atualizar painel de previsão do tempo:', error);
+        document.getElementById('weather-temp').textContent = 'Erro ao carregar';
+        document.getElementById('weather-sky').textContent = 'Erro ao carregar';
+        document.getElementById('weather-rain').textContent = 'Erro ao carregar';
+        document.getElementById('weather-wind').textContent = 'Erro ao carregar';
+    }
+}
+
+// Adicionar este evento ao seu DOMContentLoaded existente
+document.addEventListener('DOMContentLoaded', function() {
+    // Chamar a função de atualização do clima
+    updateWeatherPanel();
+    
+    // Configurar a atualização periódica (a cada 30 minutos)
+    setInterval(updateWeatherPanel, 30 * 60 * 1000);
+    
+    // Adicionar evento para abrir/fechar o painel do clima
+    document.querySelector('.weather-close')?.addEventListener('click', () => {
+        const weatherPanel = document.querySelector('.weather-panel');
+        if (weatherPanel.style.height !== '40px') {
+            weatherPanel.style.height = '40px';
+            weatherPanel.style.overflow = 'hidden';
+            document.querySelector('.weather-close').innerHTML = '&#9660;';
+        } else {
+            weatherPanel.style.height = '';
+            weatherPanel.style.overflow = '';
+            document.querySelector('.weather-close').innerHTML = '&times;';
+        }
+    });
 });

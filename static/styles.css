@@ -14,6 +14,7 @@
 
 body {
     background-color: #000;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 #map {
@@ -21,10 +22,32 @@ body {
     height: 100vh;
 }
 
-/* Control Panel Styles */
+/* Estilo para o banner simples com "TODO MUNDO NO RIO" - MAIS GROSSO */
+#top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffefae;
+    padding: 16px 15px; /* Aumentado para deixar o banner mais grosso */
+    z-index: 9999;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+
+.banner-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; /* Black - mais próximo do estilo da logo */
+    font-size: 26px; /* Tamanho da fonte aumentado */
+    color: #000;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+/* Control Panel Styles - Ajustado para ficar abaixo do banner mais grosso com espaço aumentado */
 .control-panel {
     position: absolute;
-    top: 10px;
+    top: 75px; /* Aumentado o espaçamento para 75px */
     left: 10px;
     background-color: rgba(25, 25, 25, 0.95);
     border-radius: 4px;
@@ -36,12 +59,12 @@ body {
 }
 
 .control-header {
-    background-color: #EBBC00; /* More golden/yellow tone */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
     padding: 12px 15px;
     font-weight: bold;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centralizado sem o botão de fechar */
     align-items: center;
     font-family: 'Broadway', sans-serif;
     letter-spacing: 0.5px;
@@ -52,9 +75,9 @@ body {
     text-transform: uppercase;
 }
 
-.control-close {
-    cursor: pointer;
-    font-size: 16px;
+/* Botão de fechar removido */
+.control-close, .info-close, .weather-close, .modal-close {
+    display: none !important;
 }
 
 .control-content {
@@ -89,7 +112,7 @@ body {
 }
 
 .category-btn.active {
-    background-color: #EBBC00; /* More golden/yellow tone */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
 }
 
@@ -142,10 +165,10 @@ body {
     font-size: 13px;
 }
 
-/* Info Panel Styles */
+/* Info Panel Styles - Ajustado para ficar abaixo do banner mais grosso com espaço aumentado */
 .info-panel {
     position: absolute;
-    top: 10px;
+    top: 75px; /* Aumentado o espaçamento para 75px */
     right: 10px;
     background-color: rgba(25, 25, 25, 0.95);
     color: #fff;
@@ -153,19 +176,19 @@ body {
     overflow: hidden;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    width: 360px; /* Increased width */
-    max-height: 90vh;
+    width: 460px; /* Increased width */
+    max-height: calc(95vh - 75px); /* Ajustado para o banner e o espaço */
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
 
 .info-header {
-    background-color: #EBBC00; /* More golden/yellow tone */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
     padding: 12px 15px;
     font-weight: bold;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centralizado sem o botão de fechar */
     align-items: center;
     font-family: 'Broadway', sans-serif;
     letter-spacing: 0.5px;
@@ -188,7 +211,7 @@ body {
 }
 
 .info-section h3 {
-    color: #EBBC00; /* More golden/yellow tone */
+    color: #ffefae; /* Mesmo tom do banner */
     margin-bottom: 10px;
     font-size: 15px;
     text-transform: uppercase;
@@ -215,24 +238,24 @@ body {
 }
 
 .info-time {
-    color: #EBBC00; /* More golden/yellow tone */
+    color: #ffefae; /* Mesmo tom do banner */
     font-weight: bold;
     min-width: 50px;
     font-family: 'Broadway', sans-serif;
 }
 
 .info-number {
-    color: #EBBC00; /* More golden/yellow tone */
+    color: #ffefae; /* Mesmo tom do banner */
     font-weight: bold;
     font-family: 'Broadway', sans-serif;
 }
 
-/* Como Chegar Button */
+/* Como Chegar Button - Ajustado para ficar abaixo do banner mais grosso com espaço aumentado */
 .como-chegar-btn {
     position: absolute;
-    top: 10px;
-    right: 380px; /* Adjusted for wider sidebar */
-    background-color: #EBBC00; /* More golden/yellow tone */
+    top: 75px; /* Aumentado o espaçamento para 75px */
+    right: 480px; /* Adjusted for wider sidebar */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
     border: none;
     padding: 8px 12px;
@@ -270,12 +293,12 @@ body {
 }
 
 .como-chegar-header {
-    background-color: #EBBC00; /* More golden/yellow tone */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
     padding: 12px 15px;
     font-weight: bold;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centralizado sem o botão de fechar */
     align-items: center;
     border-radius: 8px 8px 0 0;
     font-family: 'Broadway', sans-serif;
@@ -291,7 +314,7 @@ body {
 }
 
 .como-chegar-section h3 {
-    color: #EBBC00; /* More golden/yellow tone */
+    color: #ffefae; /* Mesmo tom do banner */
     margin-bottom: 10px;
     font-size: 14px;
     font-family: 'Broadway', sans-serif;
@@ -315,7 +338,7 @@ body {
 }
 
 .route-btn {
-    background-color: #EBBC00; /* More golden/yellow tone */
+    background-color: #ffefae; /* Mesmo tom do banner */
     color: #000;
     border: none;
     padding: 10px;
@@ -329,7 +352,7 @@ body {
 }
 
 .route-btn:hover {
-    background-color: #FFD700;
+    background-color: #ffefae; /* Mesmo tom do banner */
     transform: translateY(-1px);
 }
 
@@ -342,57 +365,6 @@ body {
     background-color: rgba(0,0,0,0.75);
     z-index: 1999;
     backdrop-filter: blur(4px);
-}
-
-/* Branding Styles */
-.branding {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background-color: rgba(25, 25, 25, 0.9);
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1000;
-    width: 200px;
-    text-align: center;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-.branding img {
-    max-width: 120px;
-    margin-bottom: 5px;
-}
-
-.branding-text {
-    color: #000;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    letter-spacing: 0.5px;
-    font-family: 'Broadway', sans-serif;
-}
-
-.branding-content {
-    background-color: #EBBC00; /* More golden/yellow tone */
-    padding: 12px;
-    border-radius: 4px;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 C 20 30, 50 30, 70 50 C 90 70, 80 90, 100 75 L 100 100 L 0 100 Z' fill='%23F5F5DC' /%3E%3C/svg%3E");
-    background-size: 100px 100px;
-}
-
-.branding-subtitle {
-    color: #000;
-    font-size: 12px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    font-family: 'Broadway', sans-serif;
-}
-
-.branding-date {
-    color: #000;
-    font-size: 11px;
-    font-family: 'Broadway', sans-serif;
 }
 
 /* Location Button */
@@ -420,12 +392,12 @@ body {
     transform: translateY(-1px);
 }
 
-/* Toggle Buttons */
+/* Toggle Buttons - Ajustado para ficar abaixo do banner mais grosso com espaço aumentado */
 .menu-toggle {
     position: absolute;
-    top: 10px;
+    top: 75px; /* Aumentado o espaçamento para 75px */
     left: 10px;
-    background-color: #EBBC00;
+    background-color: #ffefae; /* Mesmo tom do banner */
     width: 40px;
     height: 40px;
     border-radius: 4px;
@@ -441,9 +413,9 @@ body {
 
 .info-toggle {
     position: absolute;
-    top: 10px;
+    top: 75px; /* Aumentado o espaçamento para 75px */
     right: 10px;
-    background-color: #EBBC00;
+    background-color: #ffefae; /* Mesmo tom do banner */
     width: 40px;
     height: 40px;
     border-radius: 4px;
@@ -498,7 +470,7 @@ body {
 }
 
 .leaflet-popup-content strong {
-    color: #EBBC00;
+    color: #ffefae; /* Mesmo tom do banner */
     display: block;
     margin-bottom: 5px;
     font-family: 'Broadway', sans-serif;
@@ -530,13 +502,108 @@ body {
     display: none;
 }
 
+/* Weather Panel Styles - Ajustado considerando o espaçamento aumentado */
+.weather-panel {
+    position: absolute;
+    top: 400px; /* Ajustado para o espaçamento aumentado */
+    left: 10px;
+    background-color: rgba(25, 25, 25, 0.95);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    width: 320px;
+    backdrop-filter: blur(10px);
+}
+
+.weather-header {
+    background-color: #ffefae; /* Mesmo tom do banner */
+    color: #000;
+    padding: 12px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center; /* Centralizado sem o botão de fechar */
+    align-items: center;
+    font-family: 'Broadway', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.weather-content {
+    padding: 12px;
+}
+
+.weather-section {
+    background-color: rgba(30, 30, 30, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.weather-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 13px;
+}
+
+.weather-item:last-child {
+    margin-bottom: 0;
+}
+
+.weather-label {
+    color: rgba(255,255,255,0.9);
+}
+
+.weather-value {
+    color: #ffefae; /* Mesmo tom do banner */
+    font-weight: bold;
+    font-family: 'Broadway', sans-serif;
+}
+
+.credits {
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+.developer-credit {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 0.9em;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 999;
+    text-align: center;
+    font-weight: 500;
+}
+
+.event-poster {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 /* Improved Mobile Responsiveness */
 @media (max-width: 768px) {
+    #top-banner {
+        padding: 12px 10px; /* Ainda grosso em mobile, mas um pouco menos */
+    }
+    
+    .banner-text {
+        font-size: 20px;
+    }
+    
     .control-panel {
         width: 90%;
         max-width: none;
         left: 5%;
-        top: 5px;
+        top: 65px; /* Ajustado para o banner mais grosso em mobile com espaço */
     }
     
     .info-panel {
@@ -550,15 +617,9 @@ body {
     
     .como-chegar-btn {
         right: 10px;
-        top: 60px;
+        top: 115px; /* Ajustado para o banner e espaço em mobile */
         font-size: 12px;
         padding: 6px 10px;
-    }
-    
-    .branding {
-        bottom: auto;
-        top: 110px;
-        width: 150px;
     }
     
     .legend-items {
@@ -593,5 +654,17 @@ body {
         width: 90%;
         max-height: 80vh;
         overflow-y: auto;
+    }
+    
+    .weather-panel {
+        width: 90%;
+        max-width: none;
+        left: 5%;
+        top: auto;
+        bottom: 160px; /* Positioned above the info panel */
+    }
+    
+    .menu-toggle, .info-toggle {
+        top: 65px; /* Ajustado para o banner mais grosso em mobile com espaço */
     }
 }

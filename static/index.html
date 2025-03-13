@@ -11,13 +11,108 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <!-- Google Fonts for Broadway alternative -->
-    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Montserrat com peso 900 (Black) para o banner -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        .control-title, 
+        .info-section h3, 
+        .como-chegar-section h3, 
+        .branding-content,
+        .como-chegar-header .control-title,
+        .branding-content .apresentado-por {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .event-poster {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .developer-credit {
+            position: fixed;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            padding: 6px 12px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 0.9em;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 9999;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* Estilo para o banner com apenas o texto "TODO MUNDO NO RIO" */
+        #top-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #EBBC00; /* Amarelo da marca */
+            padding: 8px 15px;
+            z-index: 9999;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.5);
+        }
+
+        .banner-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900; /* Black - mais próximo do estilo da logo */
+            font-size: 16px;
+            color: #000;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+
+        /* Ajustes para outros elementos para acomodar o banner */
+        .control-panel, 
+        .info-panel, 
+        .menu-toggle, 
+        .info-toggle, 
+        .como-chegar-btn {
+            top: 44px; /* Ajustado para aparecer abaixo do banner */
+        }
+
+        /* Ajuste para mobile */
+        @media (max-width: 768px) {
+            #top-banner {
+                padding: 6px 10px;
+            }
+            
+            .banner-text {
+                font-size: 14px;
+            }
+            
+            .control-panel,
+            .info-panel,
+            .menu-toggle,
+            .info-toggle {
+                top: 35px;
+            }
+            
+            .como-chegar-btn {
+                top: 85px;
+            }
+        }
+    </style>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/styles.css" type="text/css">
 </head>
 <body>
+    <!-- Banner simples com apenas o texto "TODO MUNDO NO RIO" alinhado à esquerda -->
+    <div id="top-banner">
+        <span class="banner-text">TODO MUNDO NO RIO</span>
+    </div>
+
     <div id="map"></div>
     
     <!-- Toggle buttons that appear when panels are closed -->
@@ -27,6 +122,11 @@
     
     <div class="info-toggle hidden">
         <i class="fas fa-info"></i>
+    </div>
+    
+    <!-- Developer Credit - Fixed position at the bottom left corner -->
+    <div class="developer-credit">
+        Desenvolvido por Guilherme Landim
     </div>
     
     <div class="control-panel">
@@ -52,12 +152,6 @@
                 <button class="category-btn" data-category="services">
                     <i class="fas fa-first-aid"></i> Serviços
                 </button>
-                <button class="category-btn" data-category="hotels">
-                    <i class="fas fa-hotel"></i> Hotéis
-                </button>
-                <button class="category-btn" data-category="restaurants">
-                    <i class="fas fa-utensils"></i> Restaurantes
-                </button>
                 <button class="category-btn" data-category="all">
                     <i class="fas fa-globe"></i> Ver Tudo
                 </button>
@@ -80,25 +174,48 @@
                         <div class="legend-label">Bloqueios</div>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color" style="background-color: #28A745;"></div>
+                        <div class="legend-color" style="background-color: #F0AB00;"></div>
                         <div class="legend-label">Serviços</div>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-color" style="background-color: #F0AB00;"></div>
+                        <div class="legend-color" style="background-color: #28A745;"></div>
                         <div class="legend-label">Transporte</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #9013FE;"></div>
-                        <div class="legend-label">Hotéis</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #00ACC1;"></div>
-                        <div class="legend-label">Restaurantes</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="weather-panel">
+        <div class="weather-header">
+            <span class="control-title">Previsão do Tempo</span>
+            <span class="weather-close">&times;</span>
+        </div>
+        <div class="weather-content">
+            <div class="weather-section">
+                <div class="weather-item">
+                    <span class="weather-label">Temperatura</span>
+                    <span class="weather-value" id="weather-temp">Carregando...</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Céu</span>
+                    <span class="weather-value" id="weather-sky">Carregando...</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Chance de Chuva</span>
+                    <span class="weather-value" id="weather-rain">Carregando...</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Vento</span>
+                    <span class="weather-value" id="weather-wind">Carregando...</span>
+                </div>
+                <div class="weather-item" id="weather-icon-container" style="text-align: center; margin-top: 10px;">
+                    <!-- O ícone será inserido aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
     <div class="info-panel">
         <div class="info-header">
@@ -106,6 +223,13 @@
             <span class="info-close">&times;</span>
         </div>
         <div class="info-content">
+            <!-- Novo: Poster do Evento -->
+            <div class="info-section event-poster-section">
+                <img src="https://s2-gshow.glbimg.com/w2-WPmbRdN6WSVEr3vXkVD9UZks=/0x0:1350x1639/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2025/D/w/0JCRZwSGG3l1ARDtkuAA/lady-gaga-no-rio.jpeg" 
+                     alt="Poster do Show da Lady Gaga no Rio" 
+                     class="event-poster">
+            </div>
+
             <div class="info-section">
                 <h3>Cronograma</h3>
                 <div class="info-item">
@@ -236,15 +360,7 @@
     
     <div class="overlay hidden"></div>
     
-    <div class="branding">
-        <div class="branding-content wave-bg">
-            <div style="text-align: center; margin-bottom: 5px; font-family: 'Alfa Slab One', cursive;">APRESENTADO POR</div>
-            <img src="https://logodownload.org/wp-content/uploads/2014/04/corona-logo-1.png" alt="Corona">
-            <div class="branding-text">TODO MUNDO NO RIO</div>
-            <div class="branding-subtitle">Lady Gaga • Copacabana</div>
-            <div class="branding-date">3 DE MAIO DE 2025 • SÁBADO</div>
-        </div>
-    </div>
+    <!-- Nota: A div "branding" foi removida e substituída pelo "top-banner" acima -->
     
     <div class="location-btn">
         <i class="fas fa-location-arrow"></i>
