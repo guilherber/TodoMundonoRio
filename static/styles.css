@@ -34,7 +34,7 @@ body {
     z-index: 1;
 }
 
-/* Banner superior com imagem */
+/* Banner superior com imagem - CORRIGIDO */
 #top-banner {
     position: fixed;
     top: 0;
@@ -50,11 +50,14 @@ body {
     justify-content: center;
 }
 
-/* Estilo para a imagem no banner */
+/* Estilo para a imagem no banner - CORRIGIDO */
 .banner-image {
-    height: 30px; /* Altura da imagem */
+    height: 30px; /* Altura base da imagem */
+    width: auto; /* Importante para manter a proporção */
+    max-width: 40%; /* Limita a largura em relação ao container */
     margin-right: 10px; /* Espaço entre a imagem e o texto */
     vertical-align: middle;
+    object-fit: contain; /* Garante que a imagem mantenha proporções */
 }
 
 .banner-text {
@@ -608,11 +611,48 @@ body {
     to { transform: translateY(0); }
 }
 
-/* Otimizações específicas para dispositivos muito pequenos */
-@media (max-width: 360px) {
+/* ÁREA CORRIGIDA - Otimizações para dispositivos móveis */
+@media (max-width: 480px) {
+    .banner-image {
+        height: 24px; /* Reduz a altura em telas pequenas */
+        max-width: 30%; /* Reduz a largura máxima em telas pequenas */
+        margin-right: 6px; /* Reduz o espaçamento */
+    }
+    
+    .banner-text {
+        font-size: 16px; /* Reduz tamanho da fonte */
+    }
+    
     .category-btn {
         padding: 10px;
         font-size: 13px;
+    }
+    
+    #top-banner {
+        padding: 6px 8px;
+    }
+    
+    .como-chegar-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        bottom: 75px;
+    }
+    
+    .menu-toggle,
+    .info-toggle,
+    .weather-toggle,
+    .location-btn {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Otimizações específicas para dispositivos muito pequenos */
+@media (max-width: 360px) {
+    .banner-image {
+        height: 20px; /* Reduz ainda mais a altura */
+        max-width: 25%; /* Reduz ainda mais a largura máxima */
+        margin-right: 4px;
     }
     
     .banner-text {
@@ -625,14 +665,14 @@ body {
         padding: 6px 5px;
     }
     
-    .banner-image {
-        height: 24px; /* Imagem um pouco menor em telas pequenas */
-        margin-right: 6px;
+    .category-btn {
+        padding: 10px;
+        font-size: 13px;
     }
     
     .como-chegar-btn {
-        padding: 10px 16px;
-        font-size: 13px;
+        padding: 8px 14px;
+        font-size: 12px;
         bottom: 75px;
     }
     
@@ -994,22 +1034,4 @@ button,
 
 .map-legend.collapsed .legend-toggle i {
     transform: rotate(180deg);
-}
-
-/* Adaptar para telas menores */
-@media (max-width: 768px) {
-    .map-legend {
-        bottom: 60px;
-        max-width: 180px;
-        font-size: 11px;
-    }
-    
-    .legend-color {
-        width: 14px;
-        height: 14px;
-    }
-    
-    .legend-label {
-        font-size: 10px;
-    }
 }
