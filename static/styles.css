@@ -251,12 +251,13 @@ body {
     font-weight: bold;
 }
 
-/* Legenda */
+/* Legenda - Melhorada */
 .control-legend {
     background-color: rgba(30, 30, 30, 0.8);
-    padding: 12px;
+    padding: 15px;
     border-radius: 8px;
-    margin-top: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .legend-title {
@@ -690,11 +691,7 @@ body {
         bottom: 480px; /* Ajustado para evitar sobreposição */
     }
 
-    /* Ajustes para evitar sobreposição no mapa */
-    .map-legend {
-        bottom: 100px;
-        max-width: 150px;
-    }
+    /* Remoção da referência à legenda flutuante */
     
     .na-grade-btn {
         bottom: 120px;
@@ -720,81 +717,41 @@ button,
     min-width: 44px;
 }
 
-/* Legenda flutuante no mapa */
-.map-legend {
-    position: fixed;
-    bottom: 140px;
-    right: 15px;
-    background-color: rgba(25, 25, 25, 0.9);
-    border-radius: 8px;
-    padding: 12px;
-    z-index: 900;
-    max-width: 200px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+/* Legenda flutuante no mapa - REMOVIDA */
+/* Estilos para a legenda dentro do painel de controle */
+.control-legend {
+    margin-top: 20px; /* Aumentado o espaçamento superior */
+    padding: 15px; /* Aumentado o padding */
 }
 
-.map-legend .legend-title {
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-family: 'Mayhem', sans-serif;
-    text-align: center;
+.control-legend .legend-title {
+    font-size: 16px;
+    margin-bottom: 12px;
 }
 
-.map-legend .legend-items {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.control-legend .legend-items {
+    gap: 12px; /* Aumentado o espaçamento entre itens */
 }
 
-.map-legend .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.control-legend .legend-item {
+    gap: 12px;
 }
 
-.map-legend .legend-color {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
-    flex-shrink: 0;
+.control-legend .legend-color {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
 }
 
-.map-legend .legend-label {
-    color: rgba(255,255,255,0.9);
-    font-size: 11px;
-    font-family: 'Mayhem', sans-serif;
+.control-legend .legend-label {
+    font-size: 14px;
 }
 
-/* Em telas pequenas, reduz o tamanho da legenda */
-@media (max-width: 400px) {
-    .map-legend {
-        bottom: 120px;
-        right: 5px;
-        padding: 8px;
-        max-width: 160px;
-    }
-    
-    .map-legend .legend-title {
-        font-size: 10px;
-        margin-bottom: 6px;
-    }
-    
-    .map-legend .legend-label {
-        font-size: 9px;
-    }
-}
-
-/* Estilo para o botão Todo Mundo na Grade */
+/* Ajuste do botão "Vai Grade?" - Subido mais */
 .na-grade-btn {
     position: fixed;
-    bottom: 200px; /* Movido para mais acima para evitar sobreposição */
-    right: 20px;
+    bottom: 160px; /* Subido mais um pouco */
+    right: 15px;
     z-index: 800;
     background-color: #9C27B0;
     color: white;
@@ -809,7 +766,7 @@ button,
     align-items: center;
     transition: all 0.3s ease;
     font-family: 'Mayhem', sans-serif;
-    max-width: calc(100% - 40px);
+    max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -966,72 +923,101 @@ button,
     }
 }
 
-/* Legenda fixa no mapa */
+/* Legenda flutuante no mapa - SUBIDA MAIS */
 .map-legend {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    bottom: 210px; /* Subida mais um pouco */
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.75);
     border-radius: 6px;
-    padding: 10px;
+    padding: 8px;
     z-index: 900;
-    color: white;
-    font-size: 12px;
-    max-width: 220px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    max-width: 170px;
+    width: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: visible;
+    max-height: none;
+}
+
+.map-legend .legend-title {
+    color: #ffefae;
+    font-size: 12px; /* Reduzido o tamanho */
+    font-weight: bold;
+    margin-bottom: 6px; /* Espaço menor */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Mayhem', sans-serif;
+    text-align: center;
+}
+
+.map-legend .legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaçamento reduzido */
+}
+
+.map-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 18px; /* Altura reduzida */
+}
+
+.map-legend .legend-color {
+    width: 12px; /* Quadrado menor */
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.map-legend .legend-label {
+    color: rgba(255, 255, 255, 0.9); /* Texto menos brilhante */
+    font-size: 11px; /* Tamanho reduzido */
+    font-family: 'Mayhem', sans-serif;
+    line-height: 1.2;
+    flex: 1;
+    white-space: normal;
+}
+
+/* Remove totalmente o botão de toggle e classes relacionadas */
+.legend-toggle {
+    display: none;
 }
 
 .map-legend.collapsed {
-    max-height: 32px;
-    overflow: hidden;
+    max-height: none;
+    overflow: visible;
 }
 
-.legend-title {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 8px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'Mayhem', sans-serif;
+/* Remove completamente as referências ao botão toggle */
+
+/* Em telas pequenas, ajusta a posição da legenda e do botão */
+@media (max-width: 480px) {
+    .map-legend {
+        bottom: 200px; /* Subido mais */
+        right: 8px;
+        max-width: 150px;
+    }
+    
+    .na-grade-btn {
+        bottom: 150px; /* Subido mais */
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 11px;
+        max-width: 120px;
+    }
 }
 
-.legend-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.legend-color {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.legend-label {
-    font-size: 11px;
-    font-family: 'Mayhem', sans-serif;
-}
-
-.legend-toggle {
-    text-align: center;
-    margin-top: 5px;
-    cursor: pointer;
-    padding: 3px;
-    font-family: 'Mayhem', sans-serif;
-}
-
-.legend-toggle i {
-    transition: transform 0.3s ease;
-}
-
-.map-legend.collapsed .legend-toggle i {
-    transform: rotate(180deg);
+/* Em telas muito pequenas, ajusta ainda mais */
+@media (max-width: 360px) {
+    .map-legend {
+        bottom: 160px;
+        right: 5px;
+        max-width: 130px;
+    }
 }
