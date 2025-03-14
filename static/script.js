@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', async function() {
     // Chave da API do OpenWeatherMap
     const OPENWEATHER_API_KEY = '0acbbf2a7e9e0c157c4e02f13835378b';
+    
+    // Verificar se estamos em um dispositivo móvel
+    const isMobile = window.innerWidth <= 768;
+    console.log('Dispositivo móvel detectado:', isMobile);
 
     // Função para buscar previsão do tempo para um ponto
     async function fetchWeatherForPoint(latitude, longitude) {
@@ -325,7 +329,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     
     // Função para alternar entre as camadas
-    function toggleLayer(category) {
+    window.toggleLayer = function(category) {
         // Remover todas as camadas
         Object.values(layers).forEach(layer => {
             map.removeLayer(layer);
@@ -352,22 +356,208 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Log para depuração das camadas visíveis
         console.log(`Camada ${category} ativada. Número de features: ${layers[category].getLayers().length}`);
+    };
+    
+    // Função para atualizar o painel de previsão do tempo
+    async function updateWeatherPanel() {
+        // Coordenadas de Copacabana, Rio de Janeiro
+        const lat = -22.9671;
+        const lon = -43.1844;
+        
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${OPENWEATHER_API_KEY}`);
+            
+            if (!response.ok) {
+                throw new Error('Falha ao buscar previsão do tempo');
+            }
+            
+            const weatherData = await response.json();
+            
+            console.log('Dados do clima obtidos:', weatherData);
+            
+            // Atualizar os elementos do painel
+            document.getElementById('weather-temp').textContent = `${Math.round(weatherData.main.temp)}°C`;
+            document.getElementById('weather-sky').textContent = weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1);
+            
+            // Para chance de chuva, usar cobertura de nuvens como aproximação
+            const rainChance = weatherData.clouds ? weatherData.clouds.all : 0;
+            document.getElementById('weather-rain').textContent = `${rainChance}%`;
+            
+            // Formatar a velocidade do vento
+            const windSpeed = weatherData.wind.speed;
+            let windDescription = 'Fraco';
+            
+            if (windSpeed > 10) {
+                windDescription = 'Forte';
+            } else if (windSpeed > 5) {
+                windDescription = 'Moderado';
+            }
+            
+            document.getElementById('weather-wind').textContent = `${windDescription}, ${Math.round(windSpeed * 3.6)} km/h`;
+            
+            // Adicionar ícone do clima
+            const iconContainer = document.getElementById('weather-icon-container');
+            iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; height: 80px;">`;
+            
+        } catch (error) {
+            console.error('Erro ao atualizar painel de previsão do tempo:', error);
+            
+            // Mensagens de erro para os elementos
+            document.getElementById('weather-temp').textContent = 'Erro';
+            document.getElementById('weather-sky').textContent = 'Indisponível';
+            document.getElementById('weather-rain').textContent = 'Indisponível';
+            document.getElementById('weather-wind').textContent = 'Indisponível';
+        }
+    }
+
+    // ===== Configuração de eventos UI =====
+    
+    // Referências de elementos UI
+    const controlPanel = document.querySelector('.control-panel');
+    const infoPanel = document.querySelector('.info-panel');
+    const weatherPanel = document.querySelector('.weather-panel');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const infoToggle = document.querySelector('.info-toggle');
+    const weatherToggle = document.querySelector('.weather-toggle');
+    const comoChegarbtn = document.querySelector('.como-chegar-btn');
+    const comoChegarmModal = document.querySelector('.como-chegar-modal');
+    const overlay = document.querySelector('.overlay');
+    const allCloseButtons = document.querySelectorAll('.control-close, .info-close, .weather-close, .modal-close');
+    
+    // Função para fechar todos os painéis
+    function closeAllPanels() {
+        controlPanel.classList.remove('active');
+        infoPanel.classList.remove('active');
+        weatherPanel.classList.remove('active');
+        comoChegarmModal.classList.add('hidden');
+        overlay.classList.add('hidden');
+        
+        // Mostrar botões toggle quando os painéis estão fechados
+        menuToggle.classList.remove('hidden');
+        infoToggle.classList.remove('hidden');
     }
     
-    // Adicionar eventos aos botões
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            toggleLayer(btn.dataset.category);
+    // Eventos para botões de toggle dos painéis
+    if (menuToggle && controlPanel) {
+        menuToggle.addEventListener('click', function() {
+            weatherPanel.classList.remove('active');
+            infoPanel.classList.remove('active');
+            comoChegarmModal.classList.add('hidden');
+            
+            controlPanel.classList.add('active');
+            menuToggle.classList.add('hidden');
+            overlay.classList.remove('hidden');
+            console.log('Menu toggle clicado');
+        });
+    }
+    
+    if (infoToggle && infoPanel) {
+        infoToggle.addEventListener('click', function() {
+            weatherPanel.classList.remove('active');
+            controlPanel.classList.remove('active');
+            comoChegarmModal.classList.add('hidden');
+            
+            infoPanel.classList.add('active');
+            infoToggle.classList.add('hidden');
+            overlay.classList.remove('hidden');
+            console.log('Info toggle clicado');
+        });
+    }
+    
+    if (weatherToggle && weatherPanel) {
+        weatherToggle.addEventListener('click', function() {
+            controlPanel.classList.remove('active');
+            infoPanel.classList.remove('active');
+            comoChegarmModal.classList.add('hidden');
+            
+            weatherPanel.classList.toggle('active');
+            
+            if (weatherPanel.classList.contains('active')) {
+                updateWeatherPanel();
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+            console.log('Weather toggle clicado');
+        });
+    }
+    
+    // Botões de fechar
+    allCloseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const panel = this.closest('.control-panel, .info-panel, .weather-panel, .como-chegar-modal');
+            
+            if (panel) {
+                if (panel.classList.contains('control-panel')) {
+                    panel.classList.remove('active');
+                    menuToggle.classList.remove('hidden');
+                } else if (panel.classList.contains('info-panel')) {
+                    panel.classList.remove('active');
+                    infoToggle.classList.remove('hidden');
+                } else if (panel.classList.contains('weather-panel')) {
+                    panel.classList.remove('active');
+                } else if (panel.classList.contains('como-chegar-modal')) {
+                    panel.classList.add('hidden');
+                }
+                
+                overlay.classList.add('hidden');
+            }
+            console.log('Botão de fechar clicado');
         });
     });
     
-    // Botão para mostrar a localização do usuário
-    document.querySelector('.location-btn')?.addEventListener('click', () => {
-        map.locate({setView: true, maxZoom: 17});
+    // Botão "Como Chegar"
+    if (comoChegarbtn && comoChegarmModal) {
+        comoChegarbtn.addEventListener('click', function() {
+            closeAllPanels();
+            comoChegarmModal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            console.log('Botão Como Chegar clicado');
+        });
+    }
+    
+    // Fechar quando clicar no overlay
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            closeAllPanels();
+            console.log('Overlay clicado');
+        });
+    }
+    
+    // Botões de categoria
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            toggleLayer(this.dataset.category);
+            console.log(`Botão de categoria ${this.dataset.category} clicado`);
+            
+            if (isMobile) {
+                // Em mobile, fecha o painel depois de selecionar uma categoria
+                setTimeout(() => {
+                    controlPanel.classList.remove('active');
+                    menuToggle.classList.remove('hidden');
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        });
     });
     
-    // Ao encontrar localização
-    map.on('locationfound', e => {
+    // Botão de localização
+    document.querySelector('.location-btn')?.addEventListener('click', function() {
+        map.locate({setView: true, maxZoom: 17});
+        console.log('Botão de localização clicado');
+    });
+    
+    // Botão "Mostrar rota no mapa" no modal Como Chegar
+    document.querySelector('.route-btn')?.addEventListener('click', function() {
+        comoChegarmModal.classList.add('hidden');
+        overlay.classList.add('hidden');
+        
+        toggleLayer('transport');
+        console.log('Botão de rota clicado');
+    });
+    
+    // Eventos do mapa (localização)
+    map.on('locationfound', function(e) {
         const userMarker = L.circleMarker(e.latlng, {
             radius: 8,
             color: '#fff',
@@ -376,673 +566,48 @@ document.addEventListener('DOMContentLoaded', async function() {
             fillOpacity: 0.8
         }).addTo(map).bindPopup('Você está aqui').openPopup();
         
-        // Remover o marcador após 30 segundos
         setTimeout(() => {
             map.removeLayer(userMarker);
         }, 30000);
+        
+        console.log('Localização encontrada:', e.latlng);
     });
     
-    // Lidar com erros na localização
-    map.on('locationerror', e => {
+    map.on('locationerror', function(e) {
         alert("Não foi possível acessar sua localização. Verifique se você permitiu o acesso à localização no seu navegador.");
+        console.error('Erro de localização:', e);
     });
     
-    // Eventos para abrir e fechar o painel de controle
-    document.querySelector('.control-close')?.addEventListener('click', () => {
-        document.querySelector('.control-panel').classList.add('hidden');
-        document.querySelector('.menu-toggle').classList.remove('hidden');
-    });
-    
-    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-        document.querySelector('.control-panel').classList.remove('hidden');
-        document.querySelector('.menu-toggle').classList.add('hidden');
-    });
-    
-    // Eventos para minimizar o painel de informações
-    document.querySelector('.info-close')?.addEventListener('click', (e) => {
-        e.preventDefault();
+    // Adaptações específicas para mobile
+    if (isMobile) {
+        // Configuração inicial para mobile - painéis fechados por padrão
+        controlPanel.classList.remove('active');
+        infoPanel.classList.remove('active');
+        weatherPanel.classList.remove('active');
         
-        const infoPanel = document.querySelector('.info-panel');
-        if (infoPanel.style.height !== '40px') {
-            infoPanel.style.height = '40px';
-            infoPanel.style.overflow = 'hidden';
-            document.querySelector('.info-close').innerHTML = '&#9660;';
-        } else {
-            infoPanel.style.height = '';
-            infoPanel.style.overflow = '';
-            document.querySelector('.info-close').innerHTML = '&times;';
-        }
-    });
-    
-    // Modal Como Chegar
-    document.querySelector('.como-chegar-btn')?.addEventListener('click', () => {
-        document.querySelector('.como-chegar-modal').classList.remove('hidden');
-        document.querySelector('.overlay').classList.remove('hidden');
-    });
-    
-    document.querySelector('.modal-close')?.addEventListener('click', () => {
-        document.querySelector('.como-chegar-modal').classList.add('hidden');
-        document.querySelector('.overlay').classList.add('hidden');
-    });
-    
-    document.querySelector('.overlay')?.addEventListener('click', () => {
-        document.querySelector('.como-chegar-modal').classList.add('hidden');
-        document.querySelector('.overlay').classList.add('hidden');
-    });
-    
-    // Botão de rota no modal
-    document.querySelector('.route-btn')?.addEventListener('click', () => {
-        document.querySelector('.como-chegar-modal').classList.add('hidden');
-        document.querySelector('.overlay').classList.add('hidden');
+        // Mostrar botões toggle
+        if (menuToggle) menuToggle.classList.remove('hidden');
+        if (infoToggle) infoToggle.classList.remove('hidden');
         
-        toggleLayer('transport');
-        
-        // Procurar pela estação Siqueira Campos em todas as camadas de transporte
-        let foundSiqueiraCampos = false;
-        layers.transport.eachLayer(layer => {
-            layer.eachLayer && layer.eachLayer(subLayer => {
-                if (subLayer.feature && 
-                    subLayer.feature.properties && 
-                    subLayer.feature.properties.name && 
-                    subLayer.feature.properties.name.includes('Siqueira Campos')) {
-                    
-                    // Centralizar o mapa na estação
-                    if (subLayer.getLatLng) {
-                        map.setView(subLayer.getLatLng(), 16);
-                        subLayer.openPopup();
-                        foundSiqueiraCampos = true;
-                    }
-                }
+        // Ajustar comportamento de toque
+        document.querySelectorAll('.category-btn, .control-close, .info-close, .weather-close, .modal-close, .como-chegar-btn, .route-btn').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.97)';
             });
             
-            // Se não encontrou nas subcamadas, verificar na camada diretamente
-            if (!foundSiqueiraCampos && layer.feature && 
-                layer.feature.properties && 
-                layer.feature.properties.name && 
-                layer.feature.properties.name.includes('Siqueira Campos')) {
-                
-                // Centralizar o mapa na estação
-                if (layer.getLatLng) {
-                    map.setView(layer.getLatLng(), 16);
-                    layer.openPopup();
-                    foundSiqueiraCampos = true;
-                }
-            }
+            btn.addEventListener('touchend', function() {
+                this.style.transform = '';
+            });
         });
-        
-        if (!foundSiqueiraCampos) {
-            console.warn("Estação Siqueira Campos não encontrada");
-            
-            // Centralizar em Copacabana como fallback
-            map.setView([-22.9671, -43.1844], 15);
-        }
-    });
+    }
     
-    // Carregamento inicial
+    // Inicialização
     await loadAllLayers();
-    
-    // Inicializar com a camada 'blocks' visível por padrão
-    toggleLayer('blocks');
-    
-    console.log("Mapa inicializado com sucesso");
-});
-// Adicione este código ao seu arquivo script.js existente
-
-// Função para preencher o painel de previsão do tempo
-async function updateWeatherPanel() {
-    // Coordenadas de Copacabana, Rio de Janeiro
-    const lat = -22.9671;
-    const lon = -43.1844;
-    
-    try {
-        // Usar a mesma chave de API que já está definida no script
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${'0acbbf2a7e9e0c157c4e02f13835378b'}`);
-        if (!response.ok) {
-            throw new Error('Falha ao buscar previsão do tempo');
-        }
-        
-        const weatherData = await response.json();
-        
-        // Atualizar os elementos no painel
-        document.getElementById('weather-temp').textContent = `${Math.round(weatherData.main.temp)}°C`;
-        document.getElementById('weather-sky').textContent = weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1);
-        
-        // Para chance de chuva, usar cobertura de nuvens como aproximação, ou o pop se disponível
-        const rainChance = weatherData.clouds ? weatherData.clouds.all : 0;
-        document.getElementById('weather-rain').textContent = `${rainChance}%`;
-        
-        // Formatar a velocidade do vento
-        const windSpeed = weatherData.wind.speed;
-        let windDescription = 'Fraco';
-        
-        if (windSpeed > 10) {
-            windDescription = 'Forte';
-        } else if (windSpeed > 5) {
-            windDescription = 'Moderado';
-        }
-        
-        document.getElementById('weather-wind').textContent = `${windDescription}, ${Math.round(windSpeed * 3.6)} km/h`; // Convertendo m/s para km/h
-        
-        // Adicionar ícone do clima
-        const iconContainer = document.getElementById('weather-icon-container');
-        iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; height: 80px;">`;
-        
-    } catch (error) {
-        console.error('Erro ao atualizar painel de previsão do tempo:', error);
-        document.getElementById('weather-temp').textContent = 'Erro ao carregar';
-        document.getElementById('weather-sky').textContent = 'Erro ao carregar';
-        document.getElementById('weather-rain').textContent = 'Erro ao carregar';
-        document.getElementById('weather-wind').textContent = 'Erro ao carregar';
-    }
-}
-
-// Adicionar este evento ao seu DOMContentLoaded existente
-document.addEventListener('DOMContentLoaded', function() {
-    // Chamar a função de atualização do clima
     updateWeatherPanel();
+    toggleLayer('blocks');  // Camada inicial
     
-    // Configurar a atualização periódica (a cada 30 minutos)
-    setInterval(updateWeatherPanel, 30 * 60 * 1000);
+    // Atualizar dados do clima periodicamente
+    setInterval(updateWeatherPanel, 30 * 60 * 1000);  // A cada 30 minutos
     
-    // Adicionar evento para abrir/fechar o painel do clima
-    document.querySelector('.weather-close')?.addEventListener('click', () => {
-        const weatherPanel = document.querySelector('.weather-panel');
-        if (weatherPanel.style.height !== '40px') {
-            weatherPanel.style.height = '40px';
-            weatherPanel.style.overflow = 'hidden';
-            document.querySelector('.weather-close').innerHTML = '&#9660;';
-        } else {
-            weatherPanel.style.height = '';
-            weatherPanel.style.overflow = '';
-            document.querySelector('.weather-close').innerHTML = '&times;';
-        }
-    });
+    console.log('Aplicação inicializada com sucesso');
 });
-// Mobile Split View Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on mobile
-    const isMobile = window.innerWidth <= 768;
-    
-    // Elements we need to work with
-    const controlPanel = document.querySelector('.control-panel');
-    const infoPanel = document.querySelector('.info-panel');
-    const weatherPanel = document.querySelector('.weather-panel');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const infoToggle = document.querySelector('.info-toggle');
-    
-    // Control panel toggle button
-    menuToggle.addEventListener('click', function() {
-        // Make sure menu toggle is visible
-        menuToggle.style.display = 'flex';
-        
-        // Toggle control panel visibility
-        if (controlPanel.classList.contains('hidden')) {
-            // Show control panel
-            controlPanel.classList.remove('hidden');
-            menuToggle.classList.add('hidden');
-        }
-    });
-    
-    // Info panel toggle button
-    infoToggle.addEventListener('click', function() {
-        // Make sure info toggle is visible
-        infoToggle.style.display = 'flex';
-        
-        // Toggle info panel visibility
-        if (infoPanel.classList.contains('hidden')) {
-            // Show info panel
-            infoPanel.classList.remove('hidden');
-            infoToggle.classList.add('hidden');
-        }
-    });
-    
-    // Handle control panel close button
-    const controlClose = document.querySelector('.control-close');
-    if (controlClose) {
-        controlClose.addEventListener('click', function() {
-            // Hide control panel
-            controlPanel.classList.add('hidden');
-            // Show toggle button
-            menuToggle.classList.remove('hidden');
-        });
-    }
-    
-    // Handle info panel close button
-    const infoClose = document.querySelector('.info-close');
-    if (infoClose) {
-        infoClose.addEventListener('click', function() {
-            // Hide info panel
-            infoPanel.classList.add('hidden');
-            // Show toggle button
-            infoToggle.classList.remove('hidden');
-        });
-    }
-    
-    // Handle weather panel close button
-    const weatherClose = document.querySelector('.weather-close');
-    if (weatherClose) {
-        weatherClose.addEventListener('click', function() {
-            // Hide weather panel
-            weatherPanel.classList.add('hidden');
-        });
-    }
-    
-    // Initialize all panels as visible
-    controlPanel.classList.remove('hidden');
-    infoPanel.classList.remove('hidden');
-    weatherPanel.classList.remove('hidden');
-    
-    // Hide toggle buttons initially
-    menuToggle.classList.add('hidden');
-    infoToggle.classList.add('hidden');
-    
-    // Make toggle buttons visible
-    menuToggle.style.display = 'flex';
-    infoToggle.style.display = 'flex';
-    
-    // Apply mobile-specific styling if on mobile
-    if (isMobile) {
-        // Make body scrollable
-        document.body.style.overflow = 'auto';
-        
-        // Set map height
-        const mapElement = document.getElementById('map');
-        if (mapElement) {
-            mapElement.style.height = '40vh';
-            mapElement.style.position = 'sticky';
-            mapElement.style.top = '0';
-            mapElement.style.zIndex = '10';
-        }
-        
-        // Position toggle buttons
-        menuToggle.style.position = 'fixed';
-        menuToggle.style.bottom = '10px';
-        menuToggle.style.left = '10px';
-        menuToggle.style.top = 'auto';
-        
-        infoToggle.style.position = 'fixed';
-        infoToggle.style.bottom = '10px';
-        infoToggle.style.right = '10px';
-        infoToggle.style.top = 'auto';
-        
-        // Adjust panel positioning for mobile
-        controlPanel.style.position = 'relative';
-        controlPanel.style.top = 'auto';
-        controlPanel.style.left = 'auto';
-        controlPanel.style.width = '94%';
-        controlPanel.style.margin = '10px 3%';
-        
-        infoPanel.style.position = 'relative';
-        infoPanel.style.top = 'auto';
-        infoPanel.style.right = 'auto';
-        infoPanel.style.width = '94%';
-        infoPanel.style.margin = '10px 3%';
-        
-        weatherPanel.style.position = 'relative';
-        weatherPanel.style.top = 'auto';
-        weatherPanel.style.left = 'auto';
-        weatherPanel.style.width = '94%';
-        weatherPanel.style.margin = '10px 3%';
-        
-        // Position Como Chegar button better
-        const comoChegar = document.querySelector('.como-chegar-btn');
-        if (comoChegar) {
-            comoChegar.style.position = 'fixed';
-            comoChegar.style.bottom = '70px';
-            comoChegar.style.right = '10px';
-            comoChegar.style.top = 'auto';
-            comoChegar.style.zIndex = '1001';
-        }
-        
-        // Add space at the bottom for fixed buttons
-        const spacer = document.createElement('div');
-        spacer.style.height = '100px';
-        document.body.appendChild(spacer);
-    }
-    
-    // Add debugging to console
-    console.log('Mobile Split View initialized');
-    console.log('Mobile detection:', isMobile);
-    console.log('Control Panel:', controlPanel);
-    console.log('Info Panel:', infoPanel);
-    console.log('Weather Panel:', weatherPanel);
-    console.log('Menu Toggle:', menuToggle);
-    console.log('Info Toggle:', infoToggle);
-});
-
-// Function to add to your existing code to ensure the right event listeners are added
-function addMobileButtonEvents() {
-    console.log('Adding mobile button events');
-    
-    const menuToggle = document.querySelector('.menu-toggle');
-    const infoToggle = document.querySelector('.info-toggle');
-    const controlPanel = document.querySelector('.control-panel');
-    const infoPanel = document.querySelector('.info-panel');
-    
-    if (menuToggle && controlPanel) {
-        menuToggle.onclick = function() {
-            console.log('Menu toggle clicked');
-            controlPanel.classList.remove('hidden');
-            menuToggle.classList.add('hidden');
-        };
-    }
-    
-    if (infoToggle && infoPanel) {
-        infoToggle.onclick = function() {
-            console.log('Info toggle clicked');
-            infoPanel.classList.remove('hidden');
-            infoToggle.classList.add('hidden');
-        };
-    }
-    
-    const controlClose = document.querySelector('.control-close');
-    if (controlClose && controlPanel && menuToggle) {
-        controlClose.onclick = function() {
-            console.log('Control close clicked');
-            controlPanel.classList.add('hidden');
-            menuToggle.classList.remove('hidden');
-        };
-    }
-    
-    const infoClose = document.querySelector('.info-close');
-    if (infoClose && infoPanel && infoToggle) {
-        infoClose.onclick = function() {
-            console.log('Info close clicked');
-            infoPanel.classList.add('hidden');
-            infoToggle.classList.remove('hidden');
-        };
-    }
-}
-
-// Call this function at the end of your existing DOMContentLoaded handler
-document.addEventListener('DOMContentLoaded', function() {
-    // Add a slight delay to ensure all other scripts have run
-    setTimeout(addMobileButtonEvents, 500);
-});
-// Add this code at the end of your script.js file
-
-// Fix for all navigation buttons
-document.addEventListener('DOMContentLoaded', function() {
-  // Wait for the page to fully load
-  setTimeout(function() {
-    console.log('Applying comprehensive button fix');
-    
-    // ===== Fix the hamburger menu button (left side) =====
-    const hamburgerButton = document.querySelector('.menu-toggle, .hamburger-button, button[class*="menu"], .fa-bars').closest('button, div, a');
-    const controlPanel = document.querySelector('.control-panel, div[class*="control"]');
-    
-    if (hamburgerButton && controlPanel) {
-      console.log('Found hamburger button:', hamburgerButton);
-      
-      // Make sure it's visible and clickable
-      hamburgerButton.style.display = 'flex';
-      hamburgerButton.style.cursor = 'pointer';
-      hamburgerButton.style.zIndex = '9999';
-      
-      // Add click handler
-      hamburgerButton.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Hamburger clicked');
-        
-        if (controlPanel.style.display === 'none' || controlPanel.classList.contains('hidden')) {
-          controlPanel.style.display = 'block';
-          controlPanel.classList.remove('hidden');
-        } else {
-          controlPanel.style.display = 'none';
-          controlPanel.classList.add('hidden');
-        }
-        
-        return false;
-      };
-    }
-    
-    // ===== Fix the info button (right side) =====
-    const infoButton = document.querySelector('.info-toggle, button[class*="info"], .fa-info').closest('button, div, a');
-    const infoPanel = document.querySelector('.info-panel, div[class*="info"]');
-    
-    if (infoButton && infoPanel) {
-      console.log('Found info button:', infoButton);
-      
-      // Make sure it's visible and clickable
-      infoButton.style.display = 'flex';
-      infoButton.style.cursor = 'pointer';
-      infoButton.style.zIndex = '9999';
-      
-      // Add click handler
-      infoButton.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Info button clicked');
-        
-        if (infoPanel.style.display === 'none' || infoPanel.classList.contains('hidden')) {
-          infoPanel.style.display = 'block';
-          infoPanel.classList.remove('hidden');
-        } else {
-          infoPanel.style.display = 'none';
-          infoPanel.classList.add('hidden');
-        }
-        
-        return false;
-      };
-    }
-    
-    // ===== Fix the "Como Chegar" button =====
-    const comoChegar = document.querySelector('.como-chegar-btn, button[class*="como-chegar"]');
-    const comoModal = document.querySelector('.como-chegar-modal, div[class*="modal"]');
-    const overlay = document.querySelector('.overlay');
-    
-    if (comoChegar && comoModal) {
-      console.log('Found Como Chegar button:', comoChegar);
-      
-      comoChegar.onclick = function(e) {
-        e.preventDefault();
-        console.log('Como Chegar clicked');
-        
-        comoModal.style.display = 'block';
-        comoModal.classList.remove('hidden');
-        
-        if (overlay) {
-          overlay.style.display = 'block';
-          overlay.classList.remove('hidden');
-        }
-        
-        return false;
-      };
-      
-      // Fix close button in modal
-      const modalClose = comoModal.querySelector('.modal-close, button[class*="close"], span[class*="close"]');
-      if (modalClose) {
-        modalClose.onclick = function(e) {
-          e.preventDefault();
-          console.log('Modal close clicked');
-          
-          comoModal.style.display = 'none';
-          comoModal.classList.add('hidden');
-          
-          if (overlay) {
-            overlay.style.display = 'none';
-            overlay.classList.add('hidden');
-          }
-          
-          return false;
-        };
-      }
-      
-      // Close modal when overlay is clicked
-      if (overlay) {
-        overlay.onclick = function() {
-          comoModal.style.display = 'none';
-          comoModal.classList.add('hidden');
-          overlay.style.display = 'none';
-          overlay.classList.add('hidden');
-        };
-      }
-    }
-    
-    // ===== Fix the category buttons =====
-    const categoryButtons = document.querySelectorAll('.category-btn, button[data-category]');
-    
-    categoryButtons.forEach(function(btn) {
-      console.log('Found category button:', btn);
-      
-      btn.onclick = function(e) {
-        const category = this.getAttribute('data-category');
-        console.log('Category button clicked:', category);
-        
-        // Remove active class from all buttons
-        categoryButtons.forEach(function(b) {
-          b.classList.remove('active');
-        });
-        
-        // Add active class to this button
-        this.classList.add('active');
-        
-        // Call the toggleLayer function if it exists
-        if (typeof toggleLayer === 'function') {
-          toggleLayer(category);
-        } else {
-          console.warn('toggleLayer function not found');
-        }
-      };
-    });
-    
-    // ===== Fix the location button =====
-    const locationBtn = document.querySelector('.location-btn, button[class*="location"]');
-    
-    if (locationBtn) {
-      console.log('Found location button:', locationBtn);
-      
-      locationBtn.onclick = function() {
-        console.log('Location button clicked');
-        
-        // Check if map and locate method exist
-        if (typeof map !== 'undefined' && typeof map.locate === 'function') {
-          map.locate({setView: true, maxZoom: 17});
-        } else {
-          console.warn('Map or locate method not found');
-        }
-      };
-    }
-    
-    // ===== Fix the previsão button/dropdown =====
-    const previsaoBtn = document.querySelector('button[class*="previsao"], div[class*="previsao"]');
-    const weatherPanel = document.querySelector('.weather-panel, div[class*="weather"]');
-    
-    if (previsaoBtn && weatherPanel) {
-      console.log('Found previsao button:', previsaoBtn);
-      
-      previsaoBtn.onclick = function() {
-        console.log('Previsão button clicked');
-        
-        if (weatherPanel.style.display === 'none' || weatherPanel.classList.contains('hidden')) {
-          weatherPanel.style.display = 'block';
-          weatherPanel.classList.remove('hidden');
-        } else {
-          weatherPanel.style.display = 'none';
-          weatherPanel.classList.add('hidden');
-        }
-      };
-    }
-    
-    console.log('Button fix completed');
-    
-  }, 1000); // Wait for 1 second after page load
-});
-// Adicione este código ao seu arquivo script.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos da previsão do tempo
-    const weatherToggle = document.querySelector('.weather-toggle');
-    const weatherPanel = document.querySelector('.weather-panel');
-    
-    if (weatherToggle && weatherPanel) {
-        // Toggle para abrir/fechar o painel de previsão
-        weatherToggle.addEventListener('click', function() {
-            console.log('Weather toggle clicked');
-            
-            if (weatherPanel.classList.contains('active')) {
-                weatherPanel.classList.remove('active');
-            } else {
-                weatherPanel.classList.add('active');
-                
-                // Atualizar os dados da previsão do tempo quando abrir o painel
-                updateWeatherPanel();
-            }
-        });
-        
-        // Fechar painel quando clicar fora
-        document.addEventListener('click', function(event) {
-            if (!weatherPanel.contains(event.target) && 
-                !weatherToggle.contains(event.target) && 
-                weatherPanel.classList.contains('active')) {
-                weatherPanel.classList.remove('active');
-            }
-        });
-        
-        // Impedir a propagação do clique dentro do painel
-        weatherPanel.addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
-        
-        console.log('Weather toggle event listeners initialized');
-    } else {
-        console.warn('Weather toggle or panel not found in the DOM');
-    }
-    
-    // Atualizar o painel inicialmente (mesmo que esteja fechado)
-    updateWeatherPanel();
-});
-
-// Função para preencher o painel de previsão do tempo
-async function updateWeatherPanel() {
-    // Coordenadas de Copacabana, Rio de Janeiro
-    const lat = -22.9671;
-    const lon = -43.1844;
-    
-    try {
-        // Use a mesma chave API que já está no seu código
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=0acbbf2a7e9e0c157c4e02f13835378b`);
-        
-        if (!response.ok) {
-            throw new Error('Falha ao buscar previsão do tempo');
-        }
-        
-        const weatherData = await response.json();
-        
-        console.log('Weather data fetched:', weatherData);
-        
-        // Atualizar os elementos no painel
-        document.getElementById('weather-temp').textContent = `${Math.round(weatherData.main.temp)}°C`;
-        document.getElementById('weather-sky').textContent = weatherData.weather[0].description.charAt(0).toUpperCase() + weatherData.weather[0].description.slice(1);
-        
-        // Para chance de chuva, usar cobertura de nuvens como aproximação
-        const rainChance = weatherData.clouds ? weatherData.clouds.all : 0;
-        document.getElementById('weather-rain').textContent = `${rainChance}%`;
-        
-        // Formatar a velocidade do vento
-        const windSpeed = weatherData.wind.speed;
-        let windDescription = 'Fraco';
-        
-        if (windSpeed > 10) {
-            windDescription = 'Forte';
-        } else if (windSpeed > 5) {
-            windDescription = 'Moderado';
-        }
-        
-        document.getElementById('weather-wind').textContent = `${windDescription}, ${Math.round(windSpeed * 3.6)} km/h`; // Convertendo m/s para km/h
-        
-        // Adicionar ícone do clima
-        const iconContainer = document.getElementById('weather-icon-container');
-        iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; height: 80px;">`;
-        
-    } catch (error) {
-        console.error('Erro ao atualizar painel de previsão do tempo:', error);
-        
-        // Mensagens de erro nos elementos
-        document.getElementById('weather-temp').textContent = 'Erro ao carregar';
-        document.getElementById('weather-sky').textContent = 'Indisponível';
-        document.getElementById('weather-rain').textContent = 'Indisponível';
-        document.getElementById('weather-wind').textContent = 'Indisponível';
-    }
-}

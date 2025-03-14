@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Todo Mundo No Rio - Lady Gaga em Copacabana</title>
     
     <!-- Leaflet CSS -->
@@ -14,146 +14,24 @@
     <!-- Google Fonts - Montserrat com peso 900 (Black) para o banner -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
     
-    <style>
-        .control-title, 
-        .info-section h3, 
-        .como-chegar-section h3, 
-        .branding-content,
-        .como-chegar-header .control-title,
-        .branding-content .apresentado-por {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .event-poster {
-            max-width: 100%;
-            height: auto;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .developer-credit {
-            position: fixed;
-            left: 50%;
-            bottom: 10px;
-            transform: translateX(-50%);
-            padding: 6px 12px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            font-size: 0.9em;
-            border-radius: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 9999;
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        /* Estilo para o banner com apenas o texto "TODO MUNDO NO RIO" */
-        #top-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #EBBC00; /* Amarelo da marca */
-            padding: 8px 15px;
-            z-index: 9999;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.5);
-        }
-
-        .banner-text {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900; /* Black - mais próximo do estilo da logo */
-            font-size: 16px;
-            color: #000;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-left: 10px;
-        }
-
-        /* Ajustes para outros elementos para acomodar o banner */
-        .control-panel, 
-        .info-panel, 
-        .menu-toggle, 
-        .info-toggle, 
-        .como-chegar-btn,
-        .weather-toggle {
-            top: 44px; /* Ajustado para aparecer abaixo do banner */
-        }
-
-        /* Estilo para o weather toggle */
-        .weather-toggle {
-            position: absolute;
-            left: 60px;
-            background-color: #EBBC00;
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #000;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-            font-weight: bold;
-        }
-
-        .weather-toggle:hover {
-            background-color: #d3a700;
-        }
-
-        /* Classes para controlar a visibilidade */
-        .weather-panel {
-            display: none;
-        }
-
-        .weather-panel.active {
-            display: block;
-        }
-
-        /* Ajuste para mobile */
-        @media (max-width: 768px) {
-            #top-banner {
-                padding: 6px 10px;
-            }
-            
-            .banner-text {
-                font-size: 14px;
-            }
-            
-            .control-panel,
-            .info-panel,
-            .menu-toggle,
-            .info-toggle,
-            .weather-toggle {
-                top: 35px;
-            }
-            
-            .como-chegar-btn {
-                top: 85px;
-            }
-        }
-    </style>
-    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/styles.css" type="text/css">
 </head>
 <body>
-    <!-- Banner simples com apenas o texto "TODO MUNDO NO RIO" alinhado à esquerda -->
+    <!-- Banner com o texto "TODO MUNDO NO RIO" -->
     <div id="top-banner">
         <span class="banner-text">TODO MUNDO NO RIO</span>
     </div>
 
+    <!-- Mapa principal -->
     <div id="map"></div>
     
-    <!-- Toggle buttons that appear when panels are closed -->
-    <div class="menu-toggle hidden">
+    <!-- Botões toggle para painéis -->
+    <div class="menu-toggle">
         <i class="fas fa-bars"></i>
     </div>
     
-    <div class="info-toggle hidden">
+    <div class="info-toggle">
         <i class="fas fa-info"></i>
     </div>
     
@@ -161,11 +39,12 @@
         <i class="fas fa-cloud-sun"></i>
     </div>
     
-    <!-- Developer Credit - Fixed position at the bottom left corner -->
+    <!-- Crédito do desenvolvedor -->
     <div class="developer-credit">
         Desenvolvido por Guilherme Landim
     </div>
     
+    <!-- Painel de controle de camadas -->
     <div class="control-panel">
         <div class="control-header">
             <span class="control-title">Visualizações</span>
@@ -194,7 +73,7 @@
                 </button>
             </div>
             
-            <!-- Legend moved to under the Lady Gaga heading -->
+            <!-- Legenda -->
             <div class="control-legend">
                 <div class="legend-title">LEGENDA</div>
                 <div class="legend-items">
@@ -223,6 +102,7 @@
         </div>
     </div>
 
+    <!-- Painel de previsão do tempo -->
     <div class="weather-panel">
         <div class="weather-header">
             <span class="control-title">Previsão do Tempo</span>
@@ -253,14 +133,14 @@
         </div>
     </div>
     
-    
+    <!-- Painel de informações -->
     <div class="info-panel">
         <div class="info-header">
             <span class="control-title">Informações</span>
             <span class="info-close">&times;</span>
         </div>
         <div class="info-content">
-            <!-- Novo: Poster do Evento -->
+            <!-- Poster do Evento -->
             <div class="info-section event-poster-section">
                 <img src="https://s2-gshow.glbimg.com/w2-WPmbRdN6WSVEr3vXkVD9UZks=/0x0:1350x1639/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2025/D/w/0JCRZwSGG3l1ARDtkuAA/lady-gaga-no-rio.jpeg" 
                      alt="Poster do Show da Lady Gaga no Rio" 
@@ -361,10 +241,12 @@
         </div>
     </div>
     
+    <!-- Botão Como Chegar -->
     <button class="como-chegar-btn">
         <i class="fas fa-directions"></i> Como Chegar
     </button>
     
+    <!-- Modal Como Chegar -->
     <div class="como-chegar-modal hidden">
         <div class="como-chegar-header">
             <span class="control-title">Como Chegar</span>
@@ -395,12 +277,15 @@
         </div>
     </div>
     
+    <!-- Overlay para fundo escurecido quando um modal está aberto -->
     <div class="overlay hidden"></div>
     
+    <!-- Botão de localização -->
     <div class="location-btn">
         <i class="fas fa-location-arrow"></i>
     </div>
     
+    <!-- Atribuição do mapa -->
     <div class="attribution">© OpenStreetMap • Leaflet</div>
     
     <!-- Leaflet JS -->
@@ -409,51 +294,7 @@
     <!-- Main JavaScript -->
     <script src="static/script.js" type="text/javascript"></script>
     
-    <!-- Script adicional para o toggle de previsão do tempo -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Toggle para previsão do tempo
-        const weatherToggle = document.querySelector('.weather-toggle');
-        const weatherPanel = document.querySelector('.weather-panel');
-        
-        if (weatherToggle && weatherPanel) {
-            weatherToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                weatherPanel.classList.toggle('active');
-                console.log('Weather toggle clicked');
-            });
-        }
-        
-        // Botão de fechar do painel de previsão
-        const weatherClose = document.querySelector('.weather-close');
-        if (weatherClose && weatherPanel) {
-            weatherClose.addEventListener('click', function() {
-                weatherPanel.classList.remove('active');
-            });
-        }
-        
-        // Carrega dados do clima
-        function updateWeatherData() {
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=-22.9671&lon=-43.1844&units=metric&lang=pt_br&appid=0acbbf2a7e9e0c157c4e02f13835378b`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('weather-temp').textContent = `${Math.round(data.main.temp)}°C`;
-                    document.getElementById('weather-sky').textContent = data.weather[0].description;
-                    document.getElementById('weather-rain').textContent = `${data.clouds.all}%`;
-                    document.getElementById('weather-wind').textContent = `${Math.round(data.wind.speed * 3.6)} km/h`;
-                    
-                    // Adicionar ícone
-                    const iconContainer = document.getElementById('weather-icon-container');
-                    iconContainer.innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Ícone do tempo" style="width: 80px; height: 80px;">`;
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar dados do clima:', error);
-                });
-        }
-        
-        // Atualiza os dados do clima quando a página carrega
-        updateWeatherData();
-    });
-    </script>
+    <!-- Weather Script -->
+    <script src="static/weather.js" type="text/javascript"></script>
 </body>
 </html>
