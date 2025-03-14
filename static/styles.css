@@ -44,16 +44,21 @@ body {
     padding: 10px;
     z-index: 9999;
     box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    text-align: center;
 }
 
 .banner-text {
     font-family: 'Scareclaws', sans-serif;
     font-weight: 900;
-    font-size: 22px;
+    font-size: 20px;
     color: #000;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-left: 5px;
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Botões toggle principais - Posicionados para fácil acesso com o polegar */
@@ -342,17 +347,21 @@ body {
     background-color: #ffefae;
     color: #000;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     z-index: 990;
     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-family: 'Scareclaws', sans-serif;
+    max-width: 75%; /* Limita a largura do botão */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .como-chegar-btn:active {
@@ -597,25 +606,45 @@ body {
     }
     
     .banner-text {
-        font-size: 16px;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        padding: 0 5px;
+    }
+    
+    #top-banner {
+        padding: 8px 5px;
     }
     
     .como-chegar-btn {
         padding: 10px 16px;
-        font-size: 14px;
+        font-size: 13px;
+        bottom: 75px;
     }
     
     .menu-toggle,
     .info-toggle,
     .weather-toggle,
     .location-btn {
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
     }
     
     .developer-credit {
         font-size: 10px;
         padding: 4px 10px;
+        bottom: 480px; /* Ajustado para evitar sobreposição */
+    }
+
+    /* Ajustes para evitar sobreposição no mapa */
+    .map-legend {
+        bottom: 100px;
+        max-width: 150px;
+    }
+    
+    .na-grade-btn {
+        bottom: 120px;
+        padding: 6px 12px;
+        font-size: 11px;
     }
 }
 
@@ -709,15 +738,15 @@ button,
 /* Estilo para o botão Todo Mundo na Grade */
 .na-grade-btn {
     position: fixed;
-    bottom: 140px;
+    bottom: 200px; /* Movido para mais acima para evitar sobreposição */
     right: 20px;
     z-index: 800;
     background-color: #9C27B0;
     color: white;
     border: none;
     border-radius: 25px;
-    padding: 10px 15px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -725,6 +754,10 @@ button,
     align-items: center;
     transition: all 0.3s ease;
     font-family: 'Scareclaws', sans-serif;
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .na-grade-btn:hover {
@@ -831,9 +864,10 @@ button,
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .na-grade-btn {
-        bottom: 80px;
+        bottom: 160px; /* Ajustado para telas médias */
         padding: 8px 12px;
         font-size: 12px;
+        max-width: 150px; /* Limita a largura em telas menores */
     }
     
     .na-grade-modal {
@@ -847,6 +881,33 @@ button,
     
     .kit-section {
         padding: 10px;
+    }
+}
+
+/* Ajuste específico para evitar sobreposição em dispositivos muito pequenos */
+@media (max-width: 480px) {
+    .na-grade-btn {
+        bottom: 220px; /* Movido ainda mais para cima */
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 11px;
+        max-width: 120px; /* Largura máxima reduzida */
+    }
+    
+    .menu-toggle, 
+    .info-toggle, 
+    .weather-toggle {
+        bottom: 12px; /* Ajusta a posição dos botões principais */
+    }
+    
+    .como-chegar-btn {
+        bottom: 70px; /* Ajusta a posição do botão Como Chegar */
+        padding: 8px 15px;
+    }
+    
+    /* Botão alternativo para dispositivos pequenos */
+    .na-grade-btn i {
+        margin-right: 5px;
     }
 }
 
