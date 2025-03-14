@@ -1,7 +1,7 @@
-/* Importação da fonte Scareclaws */
+/* Importação da fonte Mayhem */
 @font-face {
-    font-family: 'Scareclaws';
-    src: url('https://fonts.cdnfonts.com/s/96851/Scareclaws-zoY2.woff') format('woff');
+    font-family: 'Mayhem';
+    src: url('https://fonts.cdnfonts.com/s/16152/MAYHEM-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -11,7 +11,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Scareclaws', Arial, sans-serif; /* Usando Scareclaws como fonte principal */
+    font-family: 'Mayhem', Arial, sans-serif; /* Usando Mayhem como fonte principal */
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
@@ -34,28 +34,38 @@ body {
     z-index: 1;
 }
 
-/* Banner superior */
+/* Banner superior com imagem */
 #top-banner {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #f0e0a2;
-    padding: 10px;
+    background-color: #000000;
+    padding: 8px 10px;
     z-index: 9999;
     box-shadow: 0 1px 4px rgba(0,0,0,0.3);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo para a imagem no banner */
+.banner-image {
+    height: 30px; /* Altura da imagem */
+    margin-right: 10px; /* Espaço entre a imagem e o texto */
+    vertical-align: middle;
 }
 
 .banner-text {
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     font-weight: 900;
     font-size: 20px;
     color: #000;
     letter-spacing: 1px;
     text-transform: uppercase;
-    margin: 0 auto;
-    display: block;
+    margin: 0;
+    display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -183,7 +193,7 @@ body {
 .legend-title,
 .como-chegar-btn,
 .route-btn {
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .control-close,
@@ -224,7 +234,7 @@ body {
     align-items: center;
     gap: 10px;
     transition: background-color 0.2s;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .category-btn i {
@@ -253,7 +263,7 @@ body {
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .legend-items {
@@ -305,7 +315,7 @@ body {
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .info-item {
@@ -319,7 +329,7 @@ body {
 .info-number {
     color: #ffefae;
     font-weight: bold;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     font-size: 15px;
 }
 
@@ -357,7 +367,7 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     max-width: 75%; /* Limita a largura do botão */
     white-space: nowrap;
     overflow: hidden;
@@ -401,7 +411,7 @@ body {
     color: #ffefae;
     margin-bottom: 12px;
     font-size: 15px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     text-transform: uppercase;
 }
 
@@ -415,7 +425,7 @@ body {
 .option-box h4 {
     margin-bottom: 5px;
     font-size: 14px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .option-box p {
@@ -433,7 +443,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .route-btn:active {
@@ -491,7 +501,7 @@ body {
 .weather-value {
     color: #ffefae;
     font-weight: bold;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 #weather-icon-container {
@@ -517,7 +527,7 @@ body {
     border-radius: 20px;
     z-index: 990;
     text-align: center;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 /* Atribuição do mapa */
@@ -565,7 +575,7 @@ body {
     color: #ffefae;
     display: block;
     margin-bottom: 5px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 /* Utilitários */
@@ -612,7 +622,12 @@ body {
     }
     
     #top-banner {
-        padding: 8px 5px;
+        padding: 6px 5px;
+    }
+    
+    .banner-image {
+        height: 24px; /* Imagem um pouco menor em telas pequenas */
+        margin-right: 6px;
     }
     
     .como-chegar-btn {
@@ -687,7 +702,7 @@ button,
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     text-align: center;
 }
 
@@ -713,7 +728,7 @@ button,
 .map-legend .legend-label {
     color: rgba(255,255,255,0.9);
     font-size: 11px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 /* Em telas pequenas, reduz o tamanho da legenda */
@@ -753,7 +768,7 @@ button,
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
     max-width: calc(100% - 40px);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -797,7 +812,7 @@ button,
     align-items: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .na-grade-content {
@@ -812,7 +827,7 @@ button,
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 18px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .na-grade-section {
@@ -830,7 +845,7 @@ button,
     font-weight: 700;
     margin-bottom: 10px;
     color: #333;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .na-grade-list {
@@ -843,7 +858,7 @@ button,
     margin-bottom: 8px;
     line-height: 1.4;
     font-size: 14px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .kit-section {
@@ -858,7 +873,7 @@ button,
     margin-bottom: 10px;
     font-weight: 600;
     color: #333;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 /* Estilos responsivos */
@@ -938,7 +953,7 @@ button,
     margin-bottom: 8px;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .legend-items {
@@ -962,7 +977,7 @@ button,
 
 .legend-label {
     font-size: 11px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .legend-toggle {
@@ -970,7 +985,7 @@ button,
     margin-top: 5px;
     cursor: pointer;
     padding: 3px;
-    font-family: 'Scareclaws', sans-serif;
+    font-family: 'Mayhem', sans-serif;
 }
 
 .legend-toggle i {
