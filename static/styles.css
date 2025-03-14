@@ -630,3 +630,73 @@ button,
     min-height: 44px;
     min-width: 44px;
 }
+/* Adicione este código ao seu CSS para mover a legenda para o mapa */
+
+/* Legenda flutuante no mapa */
+.map-legend {
+    position: fixed;
+    bottom: 140px; /* Posicionada acima do botão de clima e créditos */
+    right: 15px;
+    background-color: rgba(25, 25, 25, 0.9);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 900;
+    max-width: 200px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.map-legend .legend-title {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.map-legend .legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.map-legend .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.map-legend .legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.map-legend .legend-label {
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+}
+
+/* Em telas pequenas, reduz o tamanho da legenda */
+@media (max-width: 400px) {
+    .map-legend {
+        bottom: 120px;
+        right: 5px;
+        padding: 8px;
+        max-width: 160px;
+    }
+    
+    .map-legend .legend-title {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+    
+    .map-legend .legend-label {
+        font-size: 9px;
+    }
+}
