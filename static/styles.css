@@ -1,18 +1,19 @@
+/* Importação da fonte Scareclaws */
 @font-face {
-    font-family: 'Broadway';
-    src: url('https://db.onlinewebfonts.com/t/e6f84d390465399a8e34a15b337dd034.woff2') format('woff2');
+    font-family: 'Scareclaws';
+    src: url('https://fonts.cdnfonts.com/s/96851/Scareclaws-zoY2.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* Melhora o carregamento de fontes em conexões lentas */
+    font-display: swap;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    -webkit-tap-highlight-color: transparent; /* Remove destaque de toque em elementos clicáveis */
-    touch-action: manipulation; /* Melhora resposta ao toque */
+    font-family: 'Scareclaws', Arial, sans-serif; /* Usando Scareclaws como fonte principal */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 body {
@@ -46,11 +47,11 @@ body {
 }
 
 .banner-text {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
     font-weight: 900;
-    font-size: 18px;
+    font-size: 22px;
     color: #000;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
     margin-left: 5px;
 }
@@ -172,11 +173,12 @@ body {
     z-index: 10;
 }
 
-.control-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 700;
+.control-title, 
+.info-section h3, 
+.legend-title,
+.como-chegar-btn,
+.route-btn {
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .control-close,
@@ -217,6 +219,7 @@ body {
     align-items: center;
     gap: 10px;
     transition: background-color 0.2s;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .category-btn i {
@@ -245,7 +248,7 @@ body {
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .legend-items {
@@ -297,7 +300,7 @@ body {
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .info-item {
@@ -311,7 +314,7 @@ body {
 .info-number {
     color: #ffefae;
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
     font-size: 15px;
 }
 
@@ -349,7 +352,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .como-chegar-btn:active {
@@ -389,7 +392,7 @@ body {
     color: #ffefae;
     margin-bottom: 12px;
     font-size: 15px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
     text-transform: uppercase;
 }
 
@@ -403,6 +406,7 @@ body {
 .option-box h4 {
     margin-bottom: 5px;
     font-size: 14px;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .option-box p {
@@ -420,7 +424,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 .route-btn:active {
@@ -478,7 +482,7 @@ body {
 .weather-value {
     color: #ffefae;
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 #weather-icon-container {
@@ -504,6 +508,7 @@ body {
     border-radius: 20px;
     z-index: 990;
     text-align: center;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 /* Atribuição do mapa */
@@ -551,7 +556,7 @@ body {
     color: #ffefae;
     display: block;
     margin-bottom: 5px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 /* Utilitários */
@@ -630,12 +635,11 @@ button,
     min-height: 44px;
     min-width: 44px;
 }
-/* Adicione este código ao seu CSS para mover a legenda para o mapa */
 
 /* Legenda flutuante no mapa */
 .map-legend {
     position: fixed;
-    bottom: 140px; /* Posicionada acima do botão de clima e créditos */
+    bottom: 140px;
     right: 15px;
     background-color: rgba(25, 25, 25, 0.9);
     border-radius: 8px;
@@ -654,7 +658,7 @@ button,
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Scareclaws', sans-serif;
     text-align: center;
 }
 
@@ -680,6 +684,7 @@ button,
 .map-legend .legend-label {
     color: rgba(255,255,255,0.9);
     font-size: 11px;
+    font-family: 'Scareclaws', sans-serif;
 }
 
 /* Em telas pequenas, reduz o tamanho da legenda */
@@ -698,5 +703,237 @@ button,
     
     .map-legend .legend-label {
         font-size: 9px;
+    }
+}
+
+/* Estilo para o botão Todo Mundo na Grade */
+.na-grade-btn {
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    z-index: 800;
+    background-color: #9C27B0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.na-grade-btn:hover {
+    background-color: #7B1FA2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.na-grade-btn i {
+    margin-right: 8px;
+}
+
+/* Modal Todo Mundo na Grade */
+.na-grade-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    background-color: white;
+    border-radius: 10px;
+    z-index: 1001;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.na-grade-header {
+    background-color: #9C27B0;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.na-grade-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.na-grade-title {
+    text-align: center;
+    color: #9C27B0;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.na-grade-section {
+    margin-bottom: 30px;
+}
+
+.na-grade-category {
+    margin-bottom: 20px;
+    border-left: 3px solid #9C27B0;
+    padding-left: 15px;
+}
+
+.na-grade-category h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.na-grade-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.na-grade-list li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-size: 14px;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.kit-section {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+}
+
+.kit-section h4 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .na-grade-btn {
+        bottom: 80px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .na-grade-modal {
+        width: 95%;
+        max-height: 80vh;
+    }
+    
+    .na-grade-title {
+        font-size: 16px;
+    }
+    
+    .kit-section {
+        padding: 10px;
+    }
+}
+
+/* Legenda fixa no mapa */
+.map-legend {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 6px;
+    padding: 10px;
+    z-index: 900;
+    color: white;
+    font-size: 12px;
+    max-width: 220px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.map-legend.collapsed {
+    max-height: 32px;
+    overflow: hidden;
+}
+
+.legend-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.legend-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.legend-label {
+    font-size: 11px;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.legend-toggle {
+    text-align: center;
+    margin-top: 5px;
+    cursor: pointer;
+    padding: 3px;
+    font-family: 'Scareclaws', sans-serif;
+}
+
+.legend-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.map-legend.collapsed .legend-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Adaptar para telas menores */
+@media (max-width: 768px) {
+    .map-legend {
+        bottom: 60px;
+        max-width: 180px;
+        font-size: 11px;
+    }
+    
+    .legend-color {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .legend-label {
+        font-size: 10px;
     }
 }

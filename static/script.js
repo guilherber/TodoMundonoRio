@@ -604,10 +604,126 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Inicialização
     await loadAllLayers();
     updateWeatherPanel();
-    toggleLayer('blocks');  // Camada inicial
+    toggleLayer('all');  // Camada inicial
     
     // Atualizar dados do clima periodicamente
     setInterval(updateWeatherPanel, 30 * 60 * 1000);  // A cada 30 minutos
     
     console.log('Aplicação inicializada com sucesso');
 });
+// Adicionar ao arquivo script.js existente ou criar um novo arquivo
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos do Todo Mundo na Grade
+    const naGradeBtn = document.querySelector('.na-grade-btn');
+    const naGradeModal = document.querySelector('.na-grade-modal');
+    const naGradeClose = naGradeModal.querySelector('.modal-close');
+    const overlay = document.querySelector('.overlay');
+    
+    // Função para abrir o modal Todo Mundo na Grade
+    function openNaGradeModal() {
+        naGradeModal.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Impede o scroll da página
+    }
+    
+    // Função para fechar o modal Todo Mundo na Grade
+    function closeNaGradeModal() {
+        naGradeModal.classList.add('hidden');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = ''; // Restaura o scroll da página
+    }
+    
+    // Event listeners para o modal Todo Mundo na Grade
+    naGradeBtn.addEventListener('click', openNaGradeModal);
+    naGradeClose.addEventListener('click', closeNaGradeModal);
+    
+    // Fechar o modal ao clicar no overlay
+    overlay.addEventListener('click', function() {
+        closeNaGradeModal();
+        
+        // Verificar e fechar outros modais que possam estar abertos
+        const comoChegaModal = document.querySelector('.como-chegar-modal');
+        if (!comoChegaModal.classList.contains('hidden')) {
+            comoChegaModal.classList.add('hidden');
+        }
+    });
+    
+    // Fechar o modal ao pressionar a tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeNaGradeModal();
+        }
+    });
+});
+// Adicione este código ao final do seu script.js, dentro do escopo do DOMContentLoaded
+
+// Configuração da legenda fixa no mapa
+const mapLegend = document.querySelector('.map-legend');
+const legendToggle = document.querySelector('.legend-toggle');
+
+if (mapLegend && legendToggle) {
+    // Verificar se deve iniciar colapsado em dispositivos móveis
+    if (window.innerWidth <= 768) {
+        mapLegend.classList.add('collapsed');
+    }
+    
+    // Alternar entre legenda expandida/colapsada
+    legendToggle.addEventListener('click', function() {
+        mapLegend.classList.toggle('collapsed');
+        
+        // Salvar preferência do usuário no localStorage
+        localStorage.setItem('legendCollapsed', mapLegend.classList.contains('collapsed'));
+    });
+    
+    // Verificar preferência salva
+    const savedState = localStorage.getItem('legendCollapsed');
+    if (savedState === 'true') {
+        mapLegend.classList.add('collapsed');
+    } else if (savedState === 'false') {
+        mapLegend.classList.remove('collapsed');
+    }
+    
+    // Permitir arrastar a legenda (opcional - para maior flexibilidade)
+    let isDragging = false;
+    let offsetX, offsetY;
+    
+    // Iniciar arraste
+    mapLegend.addEventListener('mousedown', function(e) {
+        if (e.target.closest('.legend-toggle')) return; // Não iniciar arraste se clicar no botão de toggle
+        
+        isDragging = true;
+        offsetX = e.clientX - mapLegend.getBoundingClientRect().left;
+        offsetY = e.clientY - mapLegend.getBoundingClientRect().top;
+        
+        mapLegend.style.cursor = 'grabbing';
+        e.preventDefault();
+    });
+    
+    // Mover durante arraste
+    document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        
+        // Garantir que a legenda permaneça dentro da janela visível
+        const maxX = window.innerWidth - mapLegend.offsetWidth;
+        const maxY = window.innerHeight - mapLegend.offsetHeight;
+        
+        const boundedX = Math.max(0, Math.min(x, maxX));
+        const boundedY = Math.max(0, Math.min(y, maxY));
+        
+        mapLegend.style.left = boundedX + 'px';
+        mapLegend.style.bottom = 'auto';
+        mapLegend.style.top = boundedY + 'px';
+    });
+    
+    // Finalizar arraste
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            mapLegend.style.cursor = '';
+        }
+    });
+}
