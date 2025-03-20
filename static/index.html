@@ -8,6 +8,9 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
@@ -17,6 +20,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/styles.css" type="text/css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J3XKTX2B65"></script>
+<!-- CSS adicional aqui -->
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -285,7 +289,15 @@
                 </div>
             </div>
             
-            <button class="route-btn">Mostrar rota no mapa</button>
+            <div class="transport-options-container">
+                <select id="transport-type" class="transport-select">
+                    <option value="metro">Metrô - Siqueira Campos</option>
+                    <option value="bus">Ônibus - Terminal Gentileza</option>
+                    <option value="bus2">Ônibus - Princesa Isabel</option>
+                </select>
+            </div>
+            
+            <button id="show-route-btn" class="route-btn">Mostrar rota no mapa</button>
         </div>
     </div>
     
@@ -297,35 +309,14 @@
         </div>
         <div class="na-grade-content">
             <div class="na-grade-section">
-                <h2 class="na-grade-title">🌴 TODO MUNDO NA GRADE | O Sonho Continua 🌴</h2>
-                
-                <div class="na-grade-category">
-                    <h3>📍 ANTES DO SHOW</h3>
-                    <ul class="na-grade-list">
-                        <li>Reconhecimento – Quem chegar antes pode explorar o espaço e observar a movimentação. Compartilhem fotos e vídeos no grupo.</li>
-                        <li>Equipe – Seguranças patrimoniais (colete) não têm infos sobre ensaios/VIP. A produção (roupa preta, rádio) sabe.</li>
-                    </ul>
+                <h2 class="na-grade-title">TODO MUNDO NA GRADE: O Sonho Continua</h2>
+                <div class="vai-sozinho-container">
+                    <a href="http://linktr.ee/todomundonagrade" class="vai-sozinho-btn-modal" target="_blank">
+                        <i class="fas fa-user"></i> Vai sozinho?
+                    </a>
                 </div>
-                
                 <div class="na-grade-category">
-                    <h3>🌴 3 DE MAIO</h3>
-                    <ul class="na-grade-list">
-                        <li>⏰ 5:50 – Encontro no hotel. Seguimos às 6h para o front.</li>
-                        <li>📍 Localização – Compartilhar no grupo para facilitar reencontros.</li>
-                        <li>⚠ Segurança – Atenção a furtos, evitem reações bruscas e mantenham contato no grupo.</li>
-                    </ul>
-                </div>
-                
-                <div class="na-grade-category">
-                    <h3>🔎 ESTRUTURA PRÓXIMA</h3>
-                    <ul class="na-grade-list">
-                        <li>Mercado Zona Sul (possivelmente 24h).</li>
-                        <li>Banheiros subterrâneos na orla com guarda-volumes.</li>
-                    </ul>
-                </div>
-                
-                <div class="na-grade-category">
-                    <h3>☢ KIT SOBREVIVÊNCIA GRADERS ☢</h3>
+                    <h3>KIT SOBREVIVÊNCIA GRADERS</h3>
                     
                     <div class="kit-section">
                         <h4>🟠 PROTEÇÃO E CONFORTO</h4>
@@ -423,11 +414,9 @@
     
     <!-- Leaflet JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    
-    <!-- Main JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
     <script src="static/script.js" type="text/javascript"></script>
-    
-    <!-- Weather Script -->
     <script src="static/weather.js" type="text/javascript"></script>
+    
 </body>
 </html>

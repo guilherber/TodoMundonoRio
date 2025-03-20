@@ -1021,3 +1021,256 @@ button,
         max-width: 130px;
     }
 }
+/* Seletor de transporte no modal "Como Chegar" */
+.transport-options-container {
+    margin: 15px 0;
+}
+
+.transport-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(51, 51, 51, 0.7);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Mayhem', sans-serif;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+}
+
+.transport-select:focus {
+    outline: none;
+    border-color: #ffefae;
+}
+
+/* Estilos para a rota no mapa */
+.leaflet-routing-container {
+    background-color: rgba(25, 25, 25, 0.95);
+    padding: 10px;
+    color: #fff;
+    max-width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-container h2 {
+    font-size: 16px;
+    color: #ffefae;
+    margin-bottom: 10px;
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-alternatives-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.leaflet-routing-alt {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.leaflet-routing-alt:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.leaflet-routing-alt h3 {
+    font-size: 14px;
+    color: #ffefae;
+    margin-bottom: 5px;
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-alt table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaflet-routing-alt tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.leaflet-routing-alt tr:last-child {
+    border-bottom: none;
+}
+
+.leaflet-routing-alt td {
+    padding: 8px 5px;
+    font-size: 13px;
+}
+
+.leaflet-routing-icon {
+    background-color: #ffefae;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.leaflet-routing-geocoders {
+    margin-bottom: 10px;
+}
+
+.leaflet-routing-geocoder {
+    margin-bottom: 5px;
+}
+
+.leaflet-routing-geocoder input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(51, 51, 51, 0.7);
+    color: #fff;
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-geocoder input:focus {
+    outline: none;
+    border-color: #ffefae;
+}
+
+.leaflet-routing-reverse-waypoints {
+    background-color: #ffefae;
+    color: #000;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-reverse-waypoints:hover {
+    background-color: #f0d78a;
+}
+
+.leaflet-routing-add-waypoint {
+    background-color: transparent;
+    color: #ffefae;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 5px 0;
+    font-family: 'Mayhem', sans-serif;
+}
+
+.leaflet-routing-add-waypoint:hover {
+    text-decoration: underline;
+}
+
+.leaflet-routing-remove-waypoint {
+    background-color: transparent;
+    color: #ff6b6b;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 5px;
+}
+
+/* Marcadores customizados */
+.custom-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #ffefae;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.custom-marker.destination {
+    color: #ff6b6b;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+    .leaflet-routing-container {
+        max-width: 280px;
+        max-height: 350px;
+    }
+    
+    .leaflet-routing-alt td {
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+    
+    .transport-select {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .leaflet-routing-container {
+        max-width: 250px;
+        max-height: 300px;
+    }
+    
+    .leaflet-routing-alt td {
+        padding: 5px 3px;
+        font-size: 11px;
+    }
+    
+    .transport-select {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+.leaflet-routing-container {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.vai-sozinho-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto 30px auto;
+    text-align: center;
+}
+
+.vai-sozinho-btn-modal {
+    background-color: #F0AB00;
+    color: white;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
+
+.vai-sozinho-btn-modal i {
+    margin-right: 8px;
+}
+
+.vai-sozinho-btn-modal:hover {
+    background-color: #D89C00;
+    transform: scale(1.05);
+    color: white;
+}

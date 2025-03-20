@@ -727,3 +727,109 @@ if (mapLegend && legendToggle) {
         }
     });
 }
+// Dentro do evento DOMContentLoaded existente
+document.querySelector('#show-route-btn')?.addEventListener('click', function() {
+    const comoChegarmModal = document.querySelector('.como-chegar-modal');
+    const overlay = document.querySelector('.overlay');
+    comoChegarmModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+
+    toggleLayer('transport'); // Exibe a camada de transporte
+
+    // Remover qualquer rota anterior
+    if (map.routingControl) {
+        map.removeControl(map.routingControl);
+    }
+
+    // Obter o tipo de transporte selecionado
+    const transportType = document.querySelector('#transport-type').value;
+
+    // Definir destinos predefinidos para cada opção de transporte
+    const destinations = {
+        'metro': [-22.9680, -43.1815], // Estação Siqueira Campos (aproximado)
+        'bus': [-22.9660, -43.1780],   // Terminal Gentileza (aproximado)
+        'bus2': [-22.9665, -43.1870]   // Princesa Isabel (aproximado)
+    };
+
+    const destination = destinations[transportType];
+
+    // Localizar o usuário e criar a rota
+    map.locate({ setView: true, maxZoom: 17 });
+    map.on('locationfound', function(e) {
+        const userLocation = e.latlng; // Origem: localização do usuário
+
+        // Adicionar controle de roteamento
+        map.routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(userLocation), // Ponto de origem
+                L.latLng(destination)   // Ponto de destino baseado na seleção
+            ],
+            routeWhileDragging: true, // Permite ajustar a rota arrastando
+            showAlternatives: true,   // Mostra rotas alternativas
+            lineOptions: {
+                styles: [{ color: '#4285F4', weight: 4, opacity: 0.8 }] // Estilo da linha da rota
+            },
+            router: L.Routing.osrmv1({
+                serviceUrl: 'https://router.project-osrm.org/route/v1',
+                profile: transportType === 'metro' ? 'foot' : 'driving' // 'foot' para metrô, 'driving' para ônibus
+            }),
+            createMarker: function(i, waypoint, n) {
+                // Personalizar marcadores de origem e destino
+                const markerIcon = i === 0 ?
+                    L.icon({
+                        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41]
+                    }) :
+                    L.icon({
+                        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+                        iconSize: [35, 56],
+                        iconAnchor: [17, 56]
+                    });
+                return L.marker(waypoint.latLng, { icon: markerIcon });
+            },
+            language: 'pt', // Define o idioma das instruções como português
+            show: true,     // Mostra as instruções de navegação
+            collapsible: true // Permite colapsar as instruções
+        }).addTo(map);
+
+        // Ajustar o mapa para mostrar a rota inteira
+        setTimeout(() => {
+            const bounds = L.latLngBounds([userLocation, destination]);
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }, 500);
+
+        console.log(`Rota criada de ${userLocation} para ${destination} usando ${transportType}`);
+    });
+
+    map.on('locationerror', function(e) {
+        alert("Não foi possível encontrar sua localização para criar a rota. Verifique as permissões de localização.");
+        console.error('Erro ao criar rota:', e);
+
+        // Fallback: criar rota a partir de um ponto padrão (ex.: centro de Copacabana)
+        const fallbackOrigin = [-22.9671, -43.1844];
+        map.routingControl = L.Routing.control({
+            waypoints: [
+                L.latLng(fallbackOrigin),
+                L.latLng(destination)
+            ],
+            routeWhileDragging: true,
+            showAlternatives: true,
+            lineOptions: {
+                styles: [{ color: '#4285F4', weight: 4, opacity: 0.8 }]
+            },
+            router: L.Routing.osrmv1({
+                serviceUrl: 'https://router.project-osrm.org/route/v1',
+                profile: transportType === 'metro' ? 'foot' : 'driving'
+            }),
+            language: 'pt',
+            show: true,
+            collapsible: true
+        }).addTo(map);
+
+        map.setView(fallbackOrigin, 15);
+    });
+});
+document.querySelector('.vai-sozinho-btn').addEventListener('click', function() {
+    window.open('http://linktr.ee/todomundonagrade', '_blank');
+});
