@@ -753,7 +753,7 @@ button,
     bottom: 160px; /* Subido mais um pouco */
     right: 15px;
     z-index: 800;
-    background-color: #9C27B0;
+    background-color: #ff0033;
     color: white;
     border: none;
     border-radius: 25px;
@@ -773,7 +773,7 @@ button,
 }
 
 .na-grade-btn:hover {
-    background-color: #7B1FA2;
+    background-color: #ff0044;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     transform: translateY(-2px);
 }
@@ -801,7 +801,7 @@ button,
 }
 
 .na-grade-header {
-    background-color: #9C27B0;
+    background-color: #ff0000;
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -820,7 +820,7 @@ button,
 
 .na-grade-title {
     text-align: center;
-    color: #9C27B0;
+    color: #ff0000;
     margin-bottom: 20px;
     font-weight: 700;
     font-size: 18px;
@@ -1239,38 +1239,4 @@ button,
     font-family: 'Montserrat', sans-serif;
     max-height: 50vh;
     overflow-y: auto;
-}
-.vai-sozinho-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 20px auto 30px auto;
-    text-align: center;
-}
-
-.vai-sozinho-btn-modal {
-    background-color: #F0AB00;
-    color: white;
-    text-decoration: none;
-    padding: 14px 30px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    margin: 0 auto;
-}
-
-.vai-sozinho-btn-modal i {
-    margin-right: 8px;
-}
-
-.vai-sozinho-btn-modal:hover {
-    background-color: #D89C00;
-    transform: scale(1.05);
-    color: white;
 }
