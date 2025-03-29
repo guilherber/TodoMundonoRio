@@ -833,42 +833,31 @@ document.querySelector('#show-route-btn')?.addEventListener('click', function() 
 document.querySelector('.vai-sozinho-btn').addEventListener('click', function() {
     window.open('http://linktr.ee/todomundonagrade', '_blank');
 });
-document.addEventListener('DOMContentLoaded', function() {
-    const emergencyBtn = document.getElementById('emergency-button');
-    const confirmModal = document.getElementById('confirm-modal');
-    const overlay = document.getElementById('overlay');
-    const cancelBtn = confirmModal.querySelector('.confirm-cancel');
-    const proceedBtn = confirmModal.querySelector('.confirm-proceed');
-    const closeBtn = confirmModal.querySelector('.modal-close');
+document.getElementById('emergencyButton').addEventListener('click', function() {
+    const emergencyNumber = '190'; // Brazil's emergency number
     
-    // Police emergency number (adjust for your country)
-    const policeNumber = '190'; // Brazil's police emergency number
-    
-    // Show confirmation modal when button is clicked
-    emergencyBtn.addEventListener('click', function() {
-        confirmModal.style.display = 'block';
-        overlay.classList.remove('hidden');
-    });
-    
-    // Close modal when cancel is clicked
-    cancelBtn.addEventListener('click', function() {
-        confirmModal.style.display = 'none';
-        overlay.classList.add('hidden');
-    });
-    
-    // Close modal when X is clicked
-    closeBtn.addEventListener('click', function() {
-        confirmModal.style.display = 'none';
-        overlay.classList.add('hidden');
-    });
-    
-    // Initiate call when proceed is clicked
-    proceedBtn.addEventListener('click', function() {
-        window.location.href = `tel:${policeNumber}`;
-        // Close the modal after initiating the call
-        setTimeout(function() {
-            confirmModal.style.display = 'none';
-            overlay.classList.add('hidden');
-        }, 1000);
-    });
+    // Try multiple methods to initiate the call
+    try {
+        // Method 1: window.open
+        window.open(`tel:${emergencyNumber}`, '_self');
+        
+        // Method 2: location.href (as backup)
+        setTimeout(() => {
+            window.location.href = `tel:${emergencyNumber}`;
+        }, 100);
+        
+        // Method 3: Creating and clicking a link
+        setTimeout(() => {
+            const link = document.createElement('a');
+            link.href = `tel:${emergencyNumber}`;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }, 200);
+        
+    } catch (error) {
+        console.error("Failed to initiate call:", error);
+        alert(`Please call emergency services manually: ${emergencyNumber}`);
+    }
 });

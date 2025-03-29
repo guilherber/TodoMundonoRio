@@ -1242,7 +1242,7 @@ button,
 }
  .emergency-btn {
         position: fixed;
-        bottom: 500px; /* Positioned above other buttons */
+        bottom: 530px; /* Positioned above other buttons */
         right: 15px;
         z-index: 901; /* Higher than other elements */
         background-color: #ff0000; /* Red color */
