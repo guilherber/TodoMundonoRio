@@ -833,31 +833,3 @@ document.querySelector('#show-route-btn')?.addEventListener('click', function() 
 document.querySelector('.vai-sozinho-btn').addEventListener('click', function() {
     window.open('http://linktr.ee/todomundonagrade', '_blank');
 });
-document.getElementById('emergencyButton').addEventListener('click', function() {
-    const emergencyNumber = '190'; // Brazil's emergency number
-    
-    // Try multiple methods to initiate the call
-    try {
-        // Method 1: window.open
-        window.open(`tel:${emergencyNumber}`, '_self');
-        
-        // Method 2: location.href (as backup)
-        setTimeout(() => {
-            window.location.href = `tel:${emergencyNumber}`;
-        }, 100);
-        
-        // Method 3: Creating and clicking a link
-        setTimeout(() => {
-            const link = document.createElement('a');
-            link.href = `tel:${emergencyNumber}`;
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }, 200);
-        
-    } catch (error) {
-        console.error("Failed to initiate call:", error);
-        alert(`Please call emergency services manually: ${emergencyNumber}`);
-    }
-});
