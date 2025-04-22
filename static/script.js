@@ -330,10 +330,64 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Função para alternar entre as camadas
     window.toggleLayer = function(category) {
-        // Remover todas as camadas
+        // Remove all layers
         Object.values(layers).forEach(layer => {
             map.removeLayer(layer);
         });
+        
+        // Activate the corresponding button
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.category === category) {
+                btn.classList.add('active');
+            }
+        });
+        
+        // Add all layers if category is 'all', but in correct order
+        if (category === 'all') {
+            // Add layers in specific z-index order
+            const layerOrder = [
+                'blocks',     // Bottom layer (areas like areabloqueada)
+                'show',       // Mid layers
+                'transport',
+                'services',
+                'hotels',
+                'restaurants',
+                'security',   // Top layers (points)
+                'weather'
+            ];
+            
+            layerOrder.forEach(layerName => {
+                map.addLayer(layers[layerName]);
+            });
+            
+            return;
+        }
+        
+        // Special handling for certain categories
+        if (category === 'security' || category === 'transport' || 
+            category === 'services' || category === 'hotels' || 
+            category === 'restaurants' || category === 'weather') {
+            // For point-based categories, still show blocks layer but with very low opacity
+            const blocksLayer = layers.blocks;
+            // Temporarily reduce opacity even further for all features in the blocks layer
+            blocksLayer.eachLayer(layer => {
+                if (layer.setStyle) {
+                    const currentStyle = layer.options || {};
+                    layer.setStyle({
+                        fillOpacity: 0.05,
+                        opacity: 0.3
+                    });
+                }
+            });
+            map.addLayer(blocksLayer);
+        }
+        
+        // Add the selected layer (on top)
+        map.addLayer(layers[category]);
+        
+        console.log(`Layer ${category} activated. Number of features: ${layers[category].getLayers().length}`);
+    };
         
         // Ativar o botão correspondente
         document.querySelectorAll('.category-btn').forEach(btn => {

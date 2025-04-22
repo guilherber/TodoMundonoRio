@@ -82,7 +82,7 @@ body {
     bottom: 15px;
     width: 50px;
     height: 50px;
-    background-color: #ffefae;
+    background-color: #9c1f1f;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -179,7 +179,7 @@ body {
 .info-header,
 .weather-header,
 .como-chegar-header {
-    background-color: #ffefae;
+    background-color: #9c1f1f;
     color: #000;
     padding: 15px;
     font-weight: bold;
@@ -314,7 +314,7 @@ body {
 }
 
 .info-section h3 {
-    color: #ffefae;
+    color: #9c1f1f;
     margin-bottom: 15px;
     font-size: 16px;
     text-transform: uppercase;
@@ -331,7 +331,7 @@ body {
 
 .info-time,
 .info-number {
-    color: #ffefae;
+    color: #9c1f1f;
     font-weight: bold;
     font-family: 'Mayhem', sans-serif;
     font-size: 15px;
@@ -358,7 +358,7 @@ body {
     bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #ffefae;
+    background-color: #9c1f1f;
     color: #000;
     border: none;
     padding: 10px 16px;
@@ -412,7 +412,7 @@ body {
 }
 
 .como-chegar-section h3 {
-    color: #ffefae;
+    color: #9c1f1f;
     margin-bottom: 12px;
     font-size: 15px;
     font-family: 'Mayhem', sans-serif;
@@ -576,7 +576,7 @@ body {
 }
 
 .leaflet-popup-content strong {
-    color: #ffefae;
+    color: #9c1f1f;
     display: block;
     margin-bottom: 5px;
     font-family: 'Mayhem', sans-serif;
@@ -944,7 +944,7 @@ button,
 }
 
 .map-legend .legend-title {
-    color: #ffefae;
+    color: #9c1f1f;
     font-size: 12px; /* Reduzido o tamanho */
     font-weight: bold;
     margin-bottom: 6px; /* Espaço menor */
@@ -1046,7 +1046,7 @@ button,
 
 .transport-select:focus {
     outline: none;
-    border-color: #ffefae;
+    border-color: #9c1f1f;
 }
 
 /* Estilos para a rota no mapa */
@@ -1066,7 +1066,7 @@ button,
 
 .leaflet-routing-container h2 {
     font-size: 16px;
-    color: #ffefae;
+    color: #9c1f1f;
     margin-bottom: 10px;
     font-family: 'Mayhem', sans-serif;
 }
@@ -1090,7 +1090,7 @@ button,
 
 .leaflet-routing-alt h3 {
     font-size: 14px;
-    color: #ffefae;
+    color: #9c1f1f;
     margin-bottom: 5px;
     font-family: 'Mayhem', sans-serif;
 }
@@ -1114,7 +1114,7 @@ button,
 }
 
 .leaflet-routing-icon {
-    background-color: #ffefae;
+    background-color: #9c1f1f;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -1144,11 +1144,11 @@ button,
 
 .leaflet-routing-geocoder input:focus {
     outline: none;
-    border-color: #ffefae;
+    border-color: #9c1f1f;
 }
 
 .leaflet-routing-reverse-waypoints {
-    background-color: #ffefae;
+    background-color: #9c1f1f;
     color: #000;
     border: none;
     padding: 5px 8px;
@@ -1159,12 +1159,12 @@ button,
 }
 
 .leaflet-routing-reverse-waypoints:hover {
-    background-color: #f0d78a;
+    background-color: #9c1f1f;
 }
 
 .leaflet-routing-add-waypoint {
     background-color: transparent;
-    color: #ffefae;
+    color: #9c1f1f;
     border: none;
     cursor: pointer;
     font-size: 13px;
@@ -1191,7 +1191,7 @@ button,
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    color: #ffefae;
+    color: #9c1f1f;
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
