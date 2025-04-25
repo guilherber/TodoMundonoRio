@@ -1,65 +1,91 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.184456, -22.967429]
-      },
-      "properties": {
-        "name": "12 Delegacia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.179230, -22.967847]
-      },
-      "properties": {
-        "name": "PMERJ"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.180582, -22.964603]
-      },
-      "properties": {
-        "name": "19 Cabine PMERJ"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.187885, -22.967825]
-      },
-      "properties": {
-        "name": "19 Batalhão Militar"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.187885, -22.967825]
-      },
-      "properties": {
-        "name": "13 Delegacia"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-43.189098, -22.985758]
-      },
-      "properties": {
-        "name": "Polícia Militar"
-      }
-    }
-  ]
+"type": "FeatureCollection",
+"name": "postos",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "12 Delegacia" }, "geometry": { "type": "Point", "coordinates": [ -43.184456, -22.967429 ] } },
+{ "type": "Feature", "properties": { "name": "PMERJ" }, "geometry": { "type": "Point", "coordinates": [ -43.17923, -22.967847 ] } },
+{ "type": "Feature", "properties": { "name": "19 Cabine PMERJ" }, "geometry": { "type": "Point", "coordinates": [ -43.180582, -22.964603 ] } },
+{ "type": "Feature", "properties": { "name": "19 Batalhão Militar" }, "geometry": { "type": "Point", "coordinates": [ -43.187885, -22.967825 ] } },
+{ "type": "Feature", "properties": { "name": "13 Delegacia" }, "geometry": { "type": "Point", "coordinates": [ -43.187885, -22.967825 ] } },
+{ "type": "Feature", "properties": { "name": "Polícia Militar" }, "geometry": { "type": "Point", "coordinates": [ -43.189098, -22.985758 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 1" }, "geometry": { "type": "Point", "coordinates": [ -43.185532093348293, -22.973214572976755 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 2" }, "geometry": { "type": "Point", "coordinates": [ -43.185420838170018, -22.973137749522866 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 3" }, "geometry": { "type": "Point", "coordinates": [ -43.185309582991749, -22.972945690697099 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 4" }, "geometry": { "type": "Point", "coordinates": [ -43.185184420916194, -22.972766435546824 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 5" }, "geometry": { "type": "Point", "coordinates": [ -43.185059258840639, -22.972625592047677 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 6" }, "geometry": { "type": "Point", "coordinates": [ -43.184795027792241, -22.972433532494144 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 7" }, "geometry": { "type": "Point", "coordinates": [ -43.184642051922125, -22.972331100620664 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 8" }, "geometry": { "type": "Point", "coordinates": [ -43.184502982949283, -22.972228668669562 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 9" }, "geometry": { "type": "Point", "coordinates": [ -43.184336100181866, -22.972087824610039 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 10" }, "geometry": { "type": "Point", "coordinates": [ -43.184210938106311, -22.97199819649575 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 11" }, "geometry": { "type": "Point", "coordinates": [ -43.184071869133469, -22.971882960261478 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 11" }, "geometry": { "type": "Point", "coordinates": [ -43.183904986366066, -22.971703703701767 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 12" }, "geometry": { "type": "Point", "coordinates": [ -43.183752010495937, -22.971562859095229 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 13" }, "geometry": { "type": "Point", "coordinates": [ -43.183585127728534, -22.971447622489801 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 14" }, "geometry": { "type": "Point", "coordinates": [ -43.183432151858405, -22.971319581701884 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 15" }, "geometry": { "type": "Point", "coordinates": [ -43.183293082885569, -22.971153128496262 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 16" }, "geometry": { "type": "Point", "coordinates": [ -43.183070572529019, -22.970999479201446 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 17" }, "geometry": { "type": "Point", "coordinates": [ -43.182889782864322, -22.970871437989022 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 18" }, "geometry": { "type": "Point", "coordinates": [ -43.1827368069942, -22.970730592515263 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 19" }, "geometry": { "type": "Point", "coordinates": [ -43.182653365610498, -22.970640963501008 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 20" }, "geometry": { "type": "Point", "coordinates": [ -43.182389134562101, -22.970461705294206 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 21" }, "geometry": { "type": "Point", "coordinates": [ -43.182222251794698, -22.970346467750012 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 322" }, "geometry": { "type": "Point", "coordinates": [ -43.182013648335428, -22.970192817538273 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 23" }, "geometry": { "type": "Point", "coordinates": [ -43.181818951773451, -22.970000754528002 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 24" }, "geometry": { "type": "Point", "coordinates": [ -43.181610348314194, -22.969885516590846 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 25" }, "geometry": { "type": "Point", "coordinates": [ -43.181429558649505, -22.969770278555455 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 26" }, "geometry": { "type": "Point", "coordinates": [ -43.181179234498387, -22.969591019194031 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 27" }, "geometry": { "type": "Point", "coordinates": [ -43.180942817244556, -22.969437368123607 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 28" }, "geometry": { "type": "Point", "coordinates": [ -43.180748120682573, -22.969309325431507 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 29" }, "geometry": { "type": "Point", "coordinates": [ -43.180456075839615, -22.969104456871889 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 30" }, "geometry": { "type": "Point", "coordinates": [ -43.180191844791224, -22.968912392315271 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 31" }, "geometry": { "type": "Point", "coordinates": [ -43.179955427537386, -22.968809957773498 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 32" }, "geometry": { "type": "Point", "coordinates": [ -43.179746824078137, -22.968681914487131 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 33" }, "geometry": { "type": "Point", "coordinates": [ -43.179538220618866, -22.968579479770717 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 34" }, "geometry": { "type": "Point", "coordinates": [ -43.179385244748744, -22.968400218830222 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 35" }, "geometry": { "type": "Point", "coordinates": [ -43.179107106803059, -22.968336197008156 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 36" }, "geometry": { "type": "Point", "coordinates": [ -43.178926317138369, -22.968208153273064 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 37" }, "geometry": { "type": "Point", "coordinates": [ -43.178703806781826, -22.968041696236128 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 38" }, "geometry": { "type": "Point", "coordinates": [ -43.178356134349727, -22.967888043404741 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 39" }, "geometry": { "type": "Point", "coordinates": [ -43.178133623993176, -22.967734390398718 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 40" }, "geometry": { "type": "Point", "coordinates": [ -43.177813765355637, -22.967580737218057 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 41" }, "geometry": { "type": "Point", "coordinates": [ -43.177688603280089, -22.96743988831571 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 42" }, "geometry": { "type": "Point", "coordinates": [ -43.177479999820825, -22.967414279408601 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 42" }, "geometry": { "type": "Point", "coordinates": [ -43.1772296756697, -22.96732464819555 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 43" }, "geometry": { "type": "Point", "coordinates": [ -43.176937630826743, -22.967145385591163 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 44" }, "geometry": { "type": "Point", "coordinates": [ -43.176840282545754, -22.967030145219972 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 45" }, "geometry": { "type": "Point", "coordinates": [ -43.176562144600069, -22.966940513752242 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 46" }, "geometry": { "type": "Point", "coordinates": [ -43.176256192859825, -22.966838077716364 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 47" }, "geometry": { "type": "Point", "coordinates": [ -43.176061496297848, -22.966748446121297 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 48" }, "geometry": { "type": "Point", "coordinates": [ -43.175880706633151, -22.966620400882416 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 49" }, "geometry": { "type": "Point", "coordinates": [ -43.175658196276608, -22.966594791820086 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 50" }, "geometry": { "type": "Point", "coordinates": [ -43.175491313509198, -22.966428332796706 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 51" }, "geometry": { "type": "Point", "coordinates": [ -43.175268803152662, -22.966377114594437 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 52" }, "geometry": { "type": "Point", "coordinates": [ -43.175088013487958, -22.966249069003876 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 53" }, "geometry": { "type": "Point", "coordinates": [ -43.174865503131414, -22.966095414135125 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 54" }, "geometry": { "type": "Point", "coordinates": [ -43.174573458288457, -22.965903345303616 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 55" }, "geometry": { "type": "Point", "coordinates": [ -43.17439266862376, -22.965877736105465 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 56" }, "geometry": { "type": "Point", "coordinates": [ -43.174211878959071, -22.965800908481913 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 57" }, "geometry": { "type": "Point", "coordinates": [ -43.173905927218819, -22.965672862345642 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 58" }, "geometry": { "type": "Point", "coordinates": [ -43.173697323759562, -22.965634448481115 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 59" }, "geometry": { "type": "Point", "coordinates": [ -43.173460906505724, -22.965480792913869 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 60" }, "geometry": { "type": "Point", "coordinates": [ -43.173113234073625, -22.96530152786471 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 61" }, "geometry": { "type": "Point", "coordinates": [ -43.17296025820351, -22.965250309235582 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 62" }, "geometry": { "type": "Point", "coordinates": [ -43.172640399565971, -22.965288723209245 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 63" }, "geometry": { "type": "Point", "coordinates": [ -43.172612585771397, -22.965186285921888 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 64" }, "geometry": { "type": "Point", "coordinates": [ -43.172487423695848, -22.965096653231779 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 365" }, "geometry": { "type": "Point", "coordinates": [ -43.172278820236578, -22.965083848556915 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 66" }, "geometry": { "type": "Point", "coordinates": [ -43.172000682290907, -22.964955801741564 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 67" }, "geometry": { "type": "Point", "coordinates": [ -43.171653009858801, -22.964814950104618 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 368" }, "geometry": { "type": "Point", "coordinates": [ -43.171055013275584, -22.964392394313425 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 369" }, "geometry": { "type": "Point", "coordinates": [ -43.171277523632135, -22.964584465291306 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 370" }, "geometry": { "type": "Point", "coordinates": [ -43.170902037405462, -22.964418003792908 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 370" }, "geometry": { "type": "Point", "coordinates": [ -43.170679527048911, -22.964456418003032 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 371" }, "geometry": { "type": "Point", "coordinates": [ -43.170429202897807, -22.964277151595731 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 372" }, "geometry": { "type": "Point", "coordinates": [ -43.170248413233111, -22.964225932578561 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 373" }, "geometry": { "type": "Point", "coordinates": [ -43.170067623568414, -22.964213127821242 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 374" }, "geometry": { "type": "Point", "coordinates": [ -43.17001199597928, -22.964315565845876 ] } },
+{ "type": "Feature", "properties": { "name": "Torre Segurança 375" }, "geometry": { "type": "Point", "coordinates": [ -43.169511347677052, -22.964174713541993 ] } }
+]
 }

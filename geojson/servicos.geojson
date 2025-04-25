@@ -1,15 +1,23 @@
 {
-    "type": "FeatureCollection",
-    "name": "servicos",
-    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-    "features": [
-      { "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.190505746388858, -22.978740445748734 ] } },
-      { "type": "Feature", "properties": { "id": 2, "tipo": "Salvamento" }, "geometry": { "type": "Point", "coordinates": [ -43.18665297167334, -22.974814176697826 ] } },
-      { "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.187696030562357, -22.971702846385647 ] } },
-      { "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.17142084786046, -22.963233144806797 ] } },
-      { "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.175392939275469, -22.963268583994093 ] } },
-      { "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.177490603830883, -22.963456411531688 ] } },
-      { "type": "Feature", "properties": { "id": 3, "tipo": "Hospital" }, "geometry": { "type": "Point", "coordinates": [ -43.18859090580851, -22.966784105211467 ] } }
-    ]
-  }
-  
+"type": "FeatureCollection",
+"name": "servicos",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 4, "tipo": "Posto República do Peru - 9 UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.180502577027383, -22.969002822744695 ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.190505746388858, -22.978740445748734 ] } },
+{ "type": "Feature", "properties": { "id": 2, "tipo": "Salvamento" }, "geometry": { "type": "Point", "coordinates": [ -43.18665297167334, -22.974814176697826 ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.187696030562357, -22.971702846385647 ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.17142084786046, -22.963233144806797 ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.175392939275469, -22.963268583994093 ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Farmácia" }, "geometry": { "type": "Point", "coordinates": [ -43.177490603830883, -22.963456411531688 ] } },
+{ "type": "Feature", "properties": { "id": 3, "tipo": "Hospital" }, "geometry": { "type": "Point", "coordinates": [ -43.18859090580851, -22.966784105211467 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "Posto Praça Lido - 9 UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.175878533680425, -22.965846524888686 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "Posto Princesa Isabel - 9 UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.173521314590779, -22.964937395001918 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.172123671413722, -22.964418804089089 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.173576942179899, -22.964860566844038 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.175802045745357, -22.965904145591004 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.180467809784155, -22.969009224896698 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.182442589198502, -22.970264040835247 ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "UTI" }, "geometry": { "type": "Point", "coordinates": [ -43.185655082471129, -22.973138549767427 ] } }
+]
+}
